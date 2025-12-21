@@ -73,3 +73,21 @@ with the ground projected tracks as follows:
 
 <img src="paris_nisar.png">
 
+All ground tracks were plotted using <a href="https://github.com/anoved/Ground-Track-Generator">Ground
+Track Generator</a> with the command 
+```
+gtg --input nisar_tle.txt --output test --start "2025-12-24 05:40:00.0 UTC" --end "2025-12-24 05:45:00.0 UTC" --interval 5s
+```
+or to get all output parameters
+```
+gtg --input nisar_tle.txt --output test2 --start "2025-12-24 05:40:00.0 UTC" --end "2025-12-24 05:55:00.0 UTC" --interval 5s --attributes all --observer 48.87337 2.24588
+```
+
+We can convince that the Dec. 24 2025 5h42 UTC pass is ascending by extending the simulation duration and
+seeing NISAR fly over Iceland and Greenland.
+
+## Frequency settings
+
+NISAR <a href="https://www.eoportal.org/ftp/satellite-missions/n/NISAR-25032021/NISAR.html">broadcasts</a>
+at 1257.5+/-20 MHz and 3200+/-37.5 MHz. The L-band is within the reach of the lower L2/L5 band of the 
+MAX2771 (1160-1290 MHz).
