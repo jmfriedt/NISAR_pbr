@@ -3,7 +3,7 @@
 A. Witze, *Arctic scientists iced out by radar mission*, Nature **566** (7 Feb. 2019): "Most other SAR missions are right-looking 
 [... but...] NISAR science team decided to make its satellite left-looking for its entire primary mission."
 confirmed by https://science.nasa.gov/mission/nisar/observation-strategy/: "As NISAR will be only left-looking -- a change in 
-observation tactics since the early planning stages – the mission will rely on data from the international constellation of 
+observation tactics since the early planning stages -- the mission will rely on data from the international constellation of 
 SAR satellites to supplement its coverage around the Arctic pole" (last updated Jul 23, 2025)
 
 ## Need to know when to listen
@@ -14,6 +14,8 @@ NISAR will be illuminating a given location. **Script update (Dec. 24, 2025): fo
 the failure to record a signal, I discovered that NISAR is left looking, not right-looking
 like Sentinel-1. The S1 and NISAR script hence differ beyond altitude and orbital parameter
 tuning.**
+
+<img src="figures/angles.png">
 
 * ``go.sh``: main script, includes the location of the ground station. Requires GDAL to
 convert from spherical (WGS84) to projected (UTM32N for France) and back.
@@ -47,21 +49,21 @@ The Maximum elevation is 84deg 59' 52.4" 75deg 23' 15.3"
 RIGHT: 2025 Dec 28 05:43:32 culminate   <- right is morning pass
 The Maximum elevation is 82deg 32' 49.1" 285deg 13' 14.0"
 ```
-matching nicely the two top passes after 12 days (20251217 becomes 20251229 and 20251216 becomes 20251228)
+matching nicely the two top passes after 12 days (20251217 between 17:32:06 and 17.32:33 matches 20251229 at 17:32:11 and 20251216 between 05:43:30 and 05:43:57 matches 20251228 at 05:43:32)
 
 but
 ```
 LEFT
 2025 Dec 22 17:40:20 culminate
-2025 Dec 27 06:41:19 culminate          <- remove left morning
+2025 Dec 27 06:41:19 culminate          <- remove left morning pass
  
 RIGHT:
 2025 Dec 23 05:35:25 culminate
-2025 Dec 25 16:26:30 culminate          <- remove right evening
-2025 Dec 30 16:34:36 culminate          <- remove right evening
+2025 Dec 25 16:26:30 culminate          <- remove right evening pass
+2025 Dec 30 16:34:36 culminate          <- remove right evening pass
 ```
-leaving two unidentified predicted pass which do not occur (would have been
-Dec. 10 and 11 according to the 12 day repeat) and on the other hand
+leaves two unidentified predicted passes which do not occur (would have been
+Dec. 10 and 11 according to the 12 day repeat). On the other hand, observations during
 Dec. 9 and 12 leading to 21 and 24 are not predicted from the orbital parameters.
 
 Looking at the trajectory in QGIs:
@@ -81,7 +83,11 @@ From this analysis, NISAR is expected to illuminate Paris on
 2025 Dec 28 04:36:35 UTC
 ```
 
-with the ground projected tracks as follows:
+with the Dec. 27 pass slightly off angle at 81 degrees instead of max. 83 degrees since 40+/-7 
+translates to 90+/-7 >= 83 at azimuth. The beamwidth is $\lambda/D$ with $\lambda\simeq 300/1250=24$ cm at
+L-band and $D=12$ m leading to a beamwidth (-3 dB) of 1.1 degrees.
+
+The ground projected tracks as generated following:
 
 <img src="paris_nisar.png">
 

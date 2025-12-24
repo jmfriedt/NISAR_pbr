@@ -14,7 +14,7 @@ search_start = ts.utc(2025, 12, 20) # Specify year, month, day to start our sear
 
 search_end = ts.utc(2025, 12, 31) # Search for passes until Year, month, day.
 
-t, events = sat.find_events(Location, search_start, search_end, altitude_degrees=80.0)
+t, events = sat.find_events(Location, search_start, search_end, altitude_degrees=83.0)
 
 #for ti, event in zip(t, events):
 #    name = ('rise above 80°', 'culminate', 'set below 80°')[event]
@@ -29,9 +29,9 @@ t, events = sat.find_events(Location, search_start, search_end, altitude_degrees
 # in the sky, and we'll print whether the satellite is illuminated.
 
 # This next section summarizes the informatino and provides the max elevation of the pass
-t, events = sat.find_events(Location, search_start, search_end, altitude_degrees=80.0)
+t, events = sat.find_events(Location, search_start, search_end, altitude_degrees=83.0)
 for ti, event in zip(t, events):
-    name = ('rise above 80°', 'culminate', 'set below 80°')[event]
+    name = ('rise above 83°', 'culminate', 'set below 83°')[event]
     if name == "culminate":
         tculm = ti
         difference = sat - Location
@@ -39,8 +39,3 @@ for ti, event in zip(t, events):
         alt, az, distance = topocentric.altaz()
         print(ti.utc_strftime('%Y %b %d %H:%M:%S'), name)
         print("The Maximum elevation is", alt, az)
-
-# (46.3439°N, 14.1306°E): descending pass @ 17:45
-#                         ascending pass @ 04:27
-# (44.9295°N, 1.9706°W): descending pass @ 18:35
-#                        ascending pass @ 05:41
