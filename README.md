@@ -75,29 +75,28 @@ the green tracks match and the red ones do not (beaming in the wrong direction).
 **Dec. 24, 2025: this analysis has been identified as erroneous since NISAR is left looking**
 
 From this analysis, NISAR is expected to illuminate Paris on
-<del>
+
 ```
-2025 Dec 24 05:42:30 culminate
-2025 Dec 26 18:01:18 culminate
+2025 Dec 27 18:59:31 UTC
+2025 Dec 28 04:36:35 UTC
 ```
 
 with the ground projected tracks as follows:
-</del>
 
 <img src="paris_nisar.png">
 
 All ground tracks were plotted using <a href="https://github.com/anoved/Ground-Track-Generator">Ground
 Track Generator</a> with the command 
 ```
-gtg --input nisar_tle.txt --output test --start "2025-12-24 05:40:00.0 UTC" --end "2025-12-24 05:45:00.0 UTC" --interval 5s
+gtg --input nisar_tle.txt --output 251227 --start "2025-12-27 18:59:00.0 UTC" --end "2025-12-27 19:05:00.0 UTC" --interval 5s
 ```
 or to get all output parameters
 ```
-gtg --input nisar_tle.txt --output test2 --start "2025-12-24 05:40:00.0 UTC" --end "2025-12-24 05:55:00.0 UTC" --interval 5s --attributes all --observer 48.87337 2.24588
+gtg --input nisar_tle.txt --output 241527 --start "2025-12-27 18:59:00.0 UTC" --end "2025-12-24 19:05:00.0 UTC" --interval 5s --attributes all --observer 48.87337 2.24588
 ```
 
-We can convince that the Dec. 24 2025 5h42 UTC pass is ascending by extending the simulation duration and
-seeing NISAR fly over Iceland and Greenland.
+We can convince that the Dec. 27, 2025 at 18h49 UTC pass is decending by extending the simulation duration and
+seeing NISAR fly southward.
 
 ## Frequency settings
 
@@ -105,4 +104,4 @@ NISAR <a href="https://www.eoportal.org/ftp/satellite-missions/n/NISAR-25032021/
 at 1257.5+/-20 MHz and 3200+/-37.5 MHz. The L-band is within the reach of the lower L2/L5 band of the 
 MAX2771 (1160-1290 MHz). **Error: P.A. Rosen & al, The NASA-ISRO SAR Mission -- A summary, IEEE Geoscience and
 Remote Sensing Mag. (June 2025) shows in Fig. 16 that all frequency plans *start* at the same frequency, namely
-1221.5 MHz, but are not centered on the same frequency.
+1221.5 MHz, but are not centered on the same frequency.**
