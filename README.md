@@ -1,10 +1,19 @@
 # Passive Bistatic RADAR using the spaceborne L and S-band NISAR satellite signal
 
+A. Witze, *Arctic scientists iced out by radar mission*, Nature **566** (7 Feb. 2019): "Most other SAR missions are right-looking 
+[... but...] NISAR science team decided to make its satellite left-looking for its entire primary mission."
+confirmed by https://science.nasa.gov/mission/nisar/observation-strategy/: "As NISAR will be only left-looking -- a change in 
+observation tactics since the early planning stages – the mission will rely on data from the international constellation of 
+SAR satellites to supplement its coverage around the Arctic pole" (last updated Jul 23, 2025)
+
 ## Need to know when to listen
 
 From the TLE orbital parameters, the known satellite altitude and the known 
 RADAR look angle (angle between antenna pointing and nadir) we can predict when
-NISAR will be illuminating a given location.
+NISAR will be illuminating a given location. **Script update (Dec. 24, 2025): following
+the failure to record a signal, I discovered that NISAR is left looking, not right-looking
+like Sentinel-1. The S1 and NISAR script hence differ beyond altitude and orbital parameter
+tuning.**
 
 * ``go.sh``: main script, includes the location of the ground station. Requires GDAL to
 convert from spherical (WGS84) to projected (UTM32N for France) and back.
@@ -63,13 +72,17 @@ the green tracks match and the red ones do not (beaming in the wrong direction).
 
 ## Illumination prediction for NISAR
 
+**Dec. 24, 2025: this analysis has been identified as erroneous since NISAR is left looking**
+
 From this analysis, NISAR is expected to illuminate Paris on
+<del>
 ```
 2025 Dec 24 05:42:30 culminate
 2025 Dec 26 18:01:18 culminate
 ```
 
 with the ground projected tracks as follows:
+</del>
 
 <img src="paris_nisar.png">
 
@@ -90,4 +103,6 @@ seeing NISAR fly over Iceland and Greenland.
 
 NISAR <a href="https://www.eoportal.org/ftp/satellite-missions/n/NISAR-25032021/NISAR.html">broadcasts</a>
 at 1257.5+/-20 MHz and 3200+/-37.5 MHz. The L-band is within the reach of the lower L2/L5 band of the 
-MAX2771 (1160-1290 MHz).
+MAX2771 (1160-1290 MHz). **Error: P.A. Rosen & al, The NASA-ISRO SAR Mission -- A summary, IEEE Geoscience and
+Remote Sensing Mag. (June 2025) shows in Fig. 16 that all frequency plans *start* at the same frequency, namely
+1221.5 MHz, but are not centered on the same frequency.
