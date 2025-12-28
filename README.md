@@ -137,6 +137,10 @@ off-center auto-correlation (the 0-delay autocorrelation is the variance) of the
 
 <img src="251227/nisar_abs_time.png">
 
+and the time-domain chirp including its duration and repetition interval
+
+<img src="251227/nisar_real_time.png">
+
 and deduced non-constant pulse repetition interval:
 
 <img src="251227/nisar_PRI.png">
