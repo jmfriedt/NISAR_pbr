@@ -1,10 +1,13 @@
 # Passive Bistatic RADAR using the spaceborne L and S-band NISAR satellite signal
 
 A. Witze, *Arctic scientists iced out by radar mission*, Nature **566** (7 Feb. 2019): "Most other SAR missions are right-looking 
-[... but...] NISAR science team decided to make its satellite left-looking for its entire primary mission."
-confirmed by https://science.nasa.gov/mission/nisar/observation-strategy/: "As NISAR will be only left-looking -- a change in 
+[... but...] NISAR science team decided to make its satellite **left-looking** for its entire primary mission."
+confirmed by https://science.nasa.gov/mission/nisar/observation-strategy/: "As NISAR will be only **left-looking** -- a change in 
 observation tactics since the early planning stages -- the mission will rely on data from the international constellation of 
-SAR satellites to supplement its coverage around the Arctic pole" (last updated Jul 23, 2025)
+SAR satellites to supplement its coverage around the Arctic pole" (last updated Jul 23, 2025).
+
+Funny enough, this <a href="https://science.nasa.gov/video-detail/amf-1a1ed0e7-59b4-4a9d-acc5-d52896620f2b/">video</a> from the NASA
+web site still shows the spaceborne RADAR shooting to the right, as does <a href="https://www.isro.gov.in/media_isro/image/index/NISAR/Picture3.jpg.webp">picture</a> from ISRO.
 
 ## Need to know when to listen
 
@@ -16,6 +19,9 @@ like Sentinel-1. The S1 and NISAR script hence differ beyond altitude and orbita
 tuning.**
 
 <img src="figures/angles.png">
+
+Furthermore, the script assumes a mean illumination angle of 40 degrees, when https://bhoonidhi.nrsc.gov.in/NISAR/
+indicates a mean angle of 37 degrees.
 
 * ``go.sh``: main script, includes the location of the ground station. Requires GDAL to
 convert from spherical (WGS84) to projected (UTM32N for France) and back.
@@ -74,8 +80,6 @@ the green tracks match and the red ones do not (beaming in the wrong direction).
 
 ## Illumination prediction for NISAR
 
-**Dec. 24, 2025: this analysis has been identified as erroneous since NISAR is left looking**
-
 From this analysis, NISAR is expected to illuminate Paris on
 
 ```
@@ -89,7 +93,7 @@ L-band and $D=12$ m leading to a beamwidth (-3 dB) of 1.1 degrees.
 
 The ground projected tracks as generated following:
 
-<img src="paris_nisar.png">
+<img src="251227/paris_nisar.png">
 
 All ground tracks were plotted using <a href="https://github.com/anoved/Ground-Track-Generator">Ground
 Track Generator</a> with the command 
@@ -108,6 +112,35 @@ seeing NISAR fly southward.
 
 NISAR <a href="https://www.eoportal.org/ftp/satellite-missions/n/NISAR-25032021/NISAR.html">broadcasts</a>
 at 1257.5+/-20 MHz and 3200+/-37.5 MHz. The L-band is within the reach of the lower L2/L5 band of the 
-MAX2771 (1160-1290 MHz). **Error: P.A. Rosen & al, The NASA-ISRO SAR Mission -- A summary, IEEE Geoscience and
-Remote Sensing Mag. (June 2025) shows in Fig. 16 that all frequency plans *start* at the same frequency, namely
-1221.5 MHz, but are not centered on the same frequency.**
+MAX2771 (1160-1290 MHz). 
+
+P.A. Rosen & al, *The NASA-ISRO SAR Mission -- A summary*, IEEE Geoscience and Remote Sensing Mag. (June 2025) 
+shows in Fig. 16 that all frequency plans *start* at the same frequency, namely
+**1221.5 MHz**, with a spit emission at the beginning of the band (20 MHz wide) and end to assess ionospheric
+contribution,0xto the delay.
+
+## December 27 illumination of Paris (France)
+
+Based on this analysis, NISAR is predicted to illuminate Paris (France) on Dec. 27, 2025, at 19:59 local time. A
+10 minute recording from 19:54 to 20:04 local time at 6 MS/s was collected using a B210 fitted with a bias-T and a 
+dual L-band GNSS antenna. From Heavens Above:
+
+<img src="251227/251227PassSkyChart2.png">
+
+<img src="251227/251227schedule.png">
+
+the satellite illuminates from the West (descending pass since beaming leftward) at a maximum elevation of 
+53 degrees, matching the https://bhoonidhi.nrsc.gov.in/NISAR/ mean illumination angle of 37 degrees (=90-53).
+
+The resulting magnitude (standard deviation as square root of the variance) as a function of time, and 
+off-center auto-correlation (the 0-delay autocorrelation is the variance) of the recording:
+
+<img src="251227/nisar_abs_time.png">
+
+and deduced non-constant pulse repetition interval:
+
+<img src="251227/nisar_PRI.png">
+
+Since only 6-MHz bandwidth of the potentially 20-MHz wide chirp was recorded, the pulse duration cannot be
+observed directly. The 5.5 us duration matches a 20 us duration of the 20 MHz wide pulse with only a fraction
+of the bandwidth being recorded.
