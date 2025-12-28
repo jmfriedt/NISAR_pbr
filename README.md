@@ -83,8 +83,9 @@ the green tracks match and the red ones do not (beaming in the wrong direction).
 From this analysis, NISAR is expected to illuminate Paris on
 
 ```
-2025 Dec 27 18:59:31 UTC
-2025 Dec 28 04:36:35 UTC
+2025 Dec 27 18:59:33 UTC
+2025 Dec 28 04:36:37 UTC
+2026 Jan 03 19:07:45 UTC
 ```
 
 with the Dec. 27 pass slightly off angle at 81 degrees instead of max. 83 degrees since 40+/-7 
@@ -116,10 +117,10 @@ MAX2771 (1160-1290 MHz).
 
 P.A. Rosen & al, *The NASA-ISRO SAR Mission -- A summary*, IEEE Geoscience and Remote Sensing Mag. (June 2025) 
 shows in Fig. 16 that all frequency plans *start* at the same frequency, namely
-**1221.5 MHz**, with a spit emission at the beginning of the band (20 MHz wide) and end to assess ionospheric
+**1221.5 MHz**, with a split emission at the beginning of the band (20 MHz wide) and end to assess ionospheric
 contribution,0xto the delay.
 
-## December 27 illumination of Paris (France)
+## December 27, 2025 illumination of Paris (France)
 
 Based on this analysis, NISAR is predicted to illuminate Paris (France) on Dec. 27, 2025, at 19:59 local time. A
 10 minute recording from 19:54 to 20:04 local time at 6 MS/s was collected using a B210 fitted with a bias-T and a 
@@ -145,6 +146,8 @@ and deduced non-constant pulse repetition interval:
 
 <img src="251227/nisar_PRI.png">
 
-Since only 6-MHz bandwidth of the potentially 20-MHz wide chirp was recorded, the pulse duration cannot be
-observed directly. The 5.5 us duration matches a 20 us duration of the 20 MHz wide pulse with only a fraction
-of the bandwidth being recorded.
+Since only 6-MHz bandwidth (limited by the B210 transfer rate, even using the 
+<a href="251227/b210_NISAR_recording.py">8-bit Over the Wire</a> format) of
+the potentially 20-MHz wide chirp was recorded, the pulse duration cannot be
+observed directly. The 5.5 us duration matches a 20 us duration of the 20 MHz 
+wide pulse with only a fraction of the bandwidth being recorded.
