@@ -118,7 +118,7 @@ MAX2771 (1160-1290 MHz).
 P.A. Rosen & al, *The NASA-ISRO SAR Mission -- A summary*, IEEE Geoscience and Remote Sensing Mag. (June 2025) 
 shows in Fig. 16 that all frequency plans *start* at the same frequency, namely
 **1221.5 MHz**, with a split emission at the beginning of the band (20 MHz wide) and end to assess ionospheric
-contribution,0xto the delay.
+contribution, to the delay:
 
 <img src="figures/NISAR_frequency_plan.png">
 
