@@ -7,7 +7,7 @@ observation tactics since the early planning stages -- the mission will rely on 
 SAR satellites to supplement its coverage around the Arctic pole" (last updated Jul 23, 2025).
 
 Funny enough, this <a href="https://science.nasa.gov/video-detail/amf-1a1ed0e7-59b4-4a9d-acc5-d52896620f2b/">video</a> from the NASA
-web site still shows the spaceborne RADAR shooting to the right, as does <a href="https://www.isro.gov.in/media_isro/image/index/NISAR/Picture3.jpg.webp">picture</a> from ISRO.
+web site still shows the spaceborne RADAR shooting to the right, as does <a href="https://www.isro.gov.in/media_isro/image/index/NISAR/Picture3.jpg.webp">this picture</a> from ISRO.
 
 ## Need to know when to listen
 
@@ -15,7 +15,7 @@ From the TLE orbital parameters, the known satellite altitude and the known
 RADAR look angle (angle between antenna pointing and nadir) we can predict when
 NISAR will be illuminating a given location. **Script update (Dec. 24, 2025): following
 the failure to record a signal, I discovered that NISAR is left looking, not right-looking
-like Sentinel-1. The S1 and NISAR script hence differ beyond altitude and orbital parameter
+like Sentinel-1. The S1 and NISAR scripts hence differ beyond altitude and orbital parameter
 tuning.**
 
 <img src="figures/angles.png">
@@ -26,8 +26,9 @@ indicates a mean angle of 37 degrees.
 * ``go.sh``: main script, includes the location of the ground station. Requires GDAL to
 convert from spherical (WGS84) to projected (UTM32N for France) and back.
 * ``go.m``: GNU/Octave script for computing the projected RADAR beam on the ground
-* ``nisar_tle.txt``: orbital parameters of the satellite, to be updated from Celestrak every
-month or so
+* ``nisar_tle*.txt``: orbital parameters of the satellite, to be updated from <a href="http://www.celestrak.org/NORAD/elements/gp.php?CATNR=65053">Celestrak</a> every
+month or so. These entries are used to plot the ground tracks in QGIS and copied into
+the following Python template script.
 * ``predict_template.py``: <a href="https://rhodesmill.org/skyfield/">SkyField</a> 
 based Python program to predict passes with highest 
 elevations and hence listening time. Verified against <a href="https://www.heavens-above.com/">Heavens Above</a> for its excellent prediction
@@ -76,7 +77,7 @@ Looking at the trajectory in QGIs:
 
 <img src="besac_s1a.png"> 
 
-the green tracks match and the red ones do not (beaming in the wrong direction).
+the green tracks match illumination of the receiver site, and the red ones do not (beaming in the wrong direction).
 
 ## Illumination prediction for NISAR
 
@@ -92,7 +93,7 @@ with the Dec. 27 pass slightly off angle at 81 degrees instead of max. 83 degree
 translates to 90+/-7 >= 83 at azimuth. The beamwidth is $\lambda/D$ with $\lambda\simeq 300/1250=24$ cm at
 L-band and $D=12$ m leading to a beamwidth (-3 dB) of 1.1 degrees.
 
-The ground projected tracks as generated following:
+The ground projected tracks are generated using ``gtg``:
 
 <img src="251227/paris_nisar.png">
 
@@ -107,13 +108,15 @@ gtg --input nisar_tle.txt --output 241527 --start "2025-12-27 18:59:00.0 UTC" --
 ```
 
 We can convince that the Dec. 27, 2025 at 18h49 UTC pass is decending by extending the simulation duration and
-seeing NISAR fly southward.
+seeing NISAR fly southward (dark green dots). The reds paths are again excluded from the analysis since the beam
+is illuminating in the wrong direction (ascending West and descending East).
 
 ## Frequency settings
 
 NISAR <a href="https://www.eoportal.org/ftp/satellite-missions/n/NISAR-25032021/NISAR.html">broadcasts</a>
 at 1257.5+/-20 MHz and 3200+/-37.5 MHz. The L-band is within the reach of the lower L2/L5 band of the 
-MAX2771 (1160-1290 MHz). 
+MAX2771 (1160-1290 MHz). GNSS SDR receivers and <a href="https://www.ardusimple.com/product/antenna-for-gnss-multiband-oem/">L2-GPS/E6-Galileo multiband antennas</a> are well suited for
+the reception.
 
 P.A. Rosen & al, *The NASA-ISRO SAR Mission -- A summary*, IEEE Geoscience and Remote Sensing Mag. (June 2025) 
 shows in Fig. 16 that all frequency plans *start* at the same frequency, namely
