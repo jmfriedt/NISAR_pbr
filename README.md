@@ -156,3 +156,30 @@ Since only 6-MHz bandwidth (limited by the B210 transfer rate, even using the
 the potentially 20-MHz wide chirp was recorded, the pulse duration cannot be
 observed directly. The 5.5 us duration matches a 20 us duration of the 20 MHz 
 wide pulse with only a fraction of the bandwidth being recorded.
+
+## January 03, 2026 illumination of Paris (France)
+
+To demonstrate that the previous measurement was not shear luck, the analysis was repeated
+for January 2026: Jan. 03, 2025, at 20:07 local time is predicted to provide a suitable 
+condition. A 10 minute recording from 20:02 to 20:12 local time at 6 MS/s was collected using 
+a B210 fitted with a bias-T and a dual L-band GNSS antenna, <a href="260103/b210_NISAR.py">this 
+time centered on 1223.5 MHz</a> to record more of the 20 MHz-wide chirp. From Heavens Above:
+
+<img src="260103/260103PassSkyChart2.png">
+
+<img src="260103/260103Schedule.png">
+
+the satellite illuminates from the West (descending pass since beaming leftward).
+
+The resulting magnitude (standard deviation as square root of the variance) as a function of time, and 
+off-center auto-correlation (the 0-delay autocorrelation is the variance) of the recording:
+
+<img src="260103/nisar_abs_time260103.png">
+
+and the time-domain chirp including its duration and repetition interval
+
+<img src="260103/nisar_real_time260103.png">
+
+and deduced non-constant pulse repetition interval:
+
+<img src="260103/nisar_real_time260103">
