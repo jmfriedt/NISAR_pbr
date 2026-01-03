@@ -182,4 +182,4 @@ and the time-domain chirp including its duration and repetition interval
 
 and deduced non-constant pulse repetition interval:
 
-<img src="260103/nisar_real_time260103">
+<img src="260103/nisar_PRI260103.png">
