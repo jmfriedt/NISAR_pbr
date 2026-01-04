@@ -52,7 +52,7 @@ class b210_L1(gr.top_block):
         self.uhd_usrp_source_0.set_time_unknown_pps(uhd.time_spec(0))
 
         # self.uhd_usrp_source_0.set_center_freq(1575.42e6, 0)
-        self.uhd_usrp_source_0.set_center_freq(1223.5e6, 0)
+        self.uhd_usrp_source_0.set_center_freq(1221.5e6, 0)
         self.uhd_usrp_source_0.set_antenna("TX/RX", 0)
         self.uhd_usrp_source_0.set_rx_agc(False, 0)
         self.uhd_usrp_source_0.set_gain(54, 0)

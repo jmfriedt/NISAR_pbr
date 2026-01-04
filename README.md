@@ -143,7 +143,11 @@ off-center auto-correlation (the 0-delay autocorrelation is the variance) of the
 
 <img src="251227/nisar_abs_time.png">
 
-and the time-domain chirp including its duration and repetition interval
+The recording was started at 19:54:02.6 according to the ``stat``function applied to the
+recorded binary file, and the chirp maximum is observed after 299 s or 19:59:01.6, close enough
+to the predicted maximum elevation at 19:59:04.
+
+The time-domain chirp including its duration and repetition interval
 
 <img src="251227/nisar_real_time.png">
 
@@ -159,7 +163,7 @@ wide pulse with only a fraction of the bandwidth being recorded.
 
 ## January 03, 2026 illumination of Paris (France)
 
-To demonstrate that the previous measurement was not shear luck, the analysis was repeated
+To demonstrate that the previous measurement was not sheer luck, the analysis was repeated
 for January 2026: Jan. 03, 2025, at 20:07 local time is predicted to provide a suitable 
 condition. A 10 minute recording from 20:02 to 20:12 local time at 6 MS/s was collected using 
 a B210 fitted with a bias-T and a dual L-band GNSS antenna, <a href="260103/b210_NISAR.py">this 
@@ -176,7 +180,12 @@ off-center auto-correlation (the 0-delay autocorrelation is the variance) of the
 
 <img src="260103/nisar_abs_time260103.png">
 
-and the time-domain chirp including its duration and repetition interval
+Recording started at 20:02:31.7 (according to ``stat`` on the resulting binary file) and the
+maximum power is recorded after 283 seconds so 20:07:14.7 close enough to the predicted 20:07:16. There
+is no need to record a full 10 minute, +/-5 minute around the predicted pass time, but a few tens of
+seconds seem enough, saving disk space and processing time. 
+
+The time-domain chirp including its duration and repetition interval
 
 <img src="260103/nisar_real_time260103.png">
 
