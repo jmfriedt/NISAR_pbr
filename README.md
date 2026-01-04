@@ -192,3 +192,11 @@ The time-domain chirp including its duration and repetition interval
 and deduced non-constant pulse repetition interval:
 
 <img src="260103/nisar_PRI260103.png">
+
+## Experimental setup
+
+A B210 SDR fitted with a <a href="https://www.ardusimple.com/product/antenna-for-gnss-multiband-oem/">Ardusimple OEM</a> antenna powered through a bias T: the DC supply is
+either from a power-pack or a USB port of the laptop. Maximum datarate from B210 to laptop
+is 6 MS/s with minimal losses with other-the-wire 8-bit data width.
+
+<img src="IMG_20251222_161622_912.jpg">
