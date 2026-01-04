@@ -200,3 +200,6 @@ either from a power-pack or a USB port of the laptop. Maximum datarate from B210
 is 6 MS/s with minimal losses with other-the-wire 8-bit data width.
 
 <img src="IMG_20251222_161622_912.jpg">
+
+First trials only use one of the two antennas, the second one will be added for recording the
+surveillance signal.
