@@ -1,8 +1,8 @@
 # position in WGS84 coordinates
-#lat=47.2469  # ground station latitude
-#lon=5.9897   # ground station longitude
-lon=2.24588
-lat=48.87337
+lat=47.2469  # ground station latitude
+lon=5.9897   # ground station longitude
+#lon=2.24588
+#lat=48.87337
 
 # convert WGS84 spherical to projected UTM32N
 res=`echo $lon $lat | gdaltransform -s_srs EPSG:4326 -t_srs EPSG:32632 | tail -1`
@@ -25,11 +25,11 @@ righ=`echo $res | cut -d\  -f1`
 
 # predict next passes
 echo ""
-echo "LEFT: " $left $heil "(keep ascending = morning)"
+echo "LEFT: " $left $heil "(keep descending)"
 cat predict_template.py | sed "s/LAT/$heil/g" | sed "s/LON/$left/g" > predict.py
-python3 predict.py
+python3 predict.py | grep descending
 echo ""
-echo "RIGHT: " $righ $heir "(keep descending = evening)"
+echo "RIGHT: " $righ $heir "(keep ascending)"
 cat predict_template.py | sed "s/LAT/$heir/g" | sed "s/LON/$righ/g" > predict.py
-python3 predict.py
+python3 predict.py | grep ascending
 
