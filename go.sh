@@ -6,11 +6,11 @@ lon=5.9897   # ground station longitude
 
 # convert WGS84 spherical to projected UTM32N
 res=`echo $lon $lat | gdaltransform -s_srs EPSG:4326 -t_srs EPSG:32632 | tail -1`
-lon=`echo $res | cut -d\  -f1`
-lat=`echo $res | cut -d\  -f2`
+lonutm=`echo $res | cut -d\  -f1`
+latutm=`echo $res | cut -d\  -f2`
 # echo $lon $lat
 # compute beam projection from radar angle and satellite altitude
-res=`octave go.m $lon $lat`
+res=`octave go.m $lonutm $latutm`
 hei=`echo $res | cut -d\  -f1`
 lef=`echo $res | cut -d\  -f2`
 rig=`echo $res | cut -d\  -f3`
@@ -26,10 +26,10 @@ righ=`echo $res | cut -d\  -f1`
 # predict next passes
 echo ""
 echo "LEFT: " $left $heil "(keep descending)"
-cat predict_template.py | sed "s/LAT/$heil/g" | sed "s/LON/$left/g" > predict.py
+cat predict_template.py | sed "s/LATC/$lat/g" | sed "s/LONC/$lon/g" | sed "s/LAT/$heil/g" | sed "s/LON/$left/g" > predict.py
 python3 predict.py | grep descending
 echo ""
 echo "RIGHT: " $righ $heir "(keep ascending)"
-cat predict_template.py | sed "s/LAT/$heir/g" | sed "s/LON/$righ/g" > predict.py
+cat predict_template.py | sed "s/LATC/$lat/g" | sed "s/LONC/$lon/g" | sed "s/LAT/$heir/g" | sed "s/LON/$righ/g" > predict.py
 python3 predict.py | grep ascending
 

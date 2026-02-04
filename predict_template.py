@@ -2,6 +2,7 @@ from skyfield.api import load, wgs84, EarthSatellite
 
 eph = load('de421.bsp')
 Location = wgs84.latlon(LAT, LON)
+LocationC= wgs84.latlon(LATC,LONC)
 
 # NISAR TLE downloaded Dec. 28, 2025 from http://www.celestrak.org/NORAD/elements/gp.php?CATNR=65053
 sat = EarthSatellite("1 65053U 25163A   26032.97429835  .00000050  00000+0  28117-4 0  9993",
@@ -20,8 +21,8 @@ for ti, event in zip(t, events):
     name = ('rise above 80°', 'culminate', 'set below 80°')[event]
     if name == "culminate":
         tculm = ti
-        tculmp30 = ti +3.4e-4 # 30"
-        difference = sat - Location
+        tculmp30 = ti +3.4e-5 # 30"
+        difference = sat - LocationC
         topocentric = difference.at(tculm)
         topocentricp30 = difference.at(tculmp30)
         alt, az, distance = topocentric.altaz()
