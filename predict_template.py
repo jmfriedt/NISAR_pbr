@@ -20,16 +20,19 @@ for ti, event in zip(t, events):
     name = ('rise above 80°', 'culminate', 'set below 80°')[event]
     if name == "culminate":
         tculm = ti
-        tculmp30 = ti +3.4e-5 # 30"
+        tculmp30 = ti +3.4e-4 # 30"
         difference = sat - Location
         topocentric = difference.at(tculm)
         topocentricp30 = difference.at(tculmp30)
         alt, az, distance = topocentric.altaz()
         altp30, azp30, distancep30 = topocentricp30.altaz()
+        daz=azp30.degrees-az.degrees
+        if az.degrees<180:  # east: az from 0 to 180 when descending 
+            daz=-daz        # west: 180 to 360 when ascending
 
         print(ti.utc_strftime('%Y %b %d %H:%M:%S'), end=" ")
         print(f"max elevation {alt} at {az}", end=" ")
-        if (azp30.degrees>az.degrees):
+        if (daz>0):
             print("ascending")
         else:
             print("descending")
