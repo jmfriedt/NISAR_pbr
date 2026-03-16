@@ -203,3 +203,16 @@ is 6 MS/s with minimal losses with other-the-wire 8-bit data width.
 
 First trials only use one of the two antennas, the second one will be added for recording the
 surveillance signal.
+
+## Result
+
+The following is a passive bistatic analysis of the signals recorded with a reference
+antenna facing the satellite and the surveillance antenna located on the roof of ENSMM
+university in Besancon, France (47N, 6E). 
+
+<img src="260314_ENSMM_tripod/260314small.jpg">
+
+The associated features (hills, cliffs) are highlighted in the following picture taken
+from the train station:
+
+<img src="260314_ENSMM_tripod/DSC03269small.jpg">
