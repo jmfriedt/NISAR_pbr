@@ -195,14 +195,28 @@ and deduced non-constant pulse repetition interval:
 
 ## Experimental setup
 
-A B210 SDR fitted with a <a href="https://www.ardusimple.com/product/antenna-for-gnss-multiband-oem/">Ardusimple OEM</a> antenna powered through a bias T: the DC supply is
-either from a power-pack or a USB port of the laptop. Maximum datarate from B210 to laptop
-is 6 MS/s with minimal losses with other-the-wire 8-bit data width.
+An Ettus Research B210 or Enjoy Digital M2SDR SDR fitted with two 
+<a href="https://www.ardusimple.com/product/antenna-for-gnss-multiband-oem/">Ardusimple OEM</a> antennas 
+powered through a bias T: the DC supply is either from a power-pack or a USB port of the laptop. 
+Maximum datarate from B210 to laptop of 22 MS/s to benefit from the full bandwidth of the 20 MHz wide
+NISAR chirps requires setting ``num_recv_frames=1024`` as UHD argument.
 
 <img src="IMG_20251222_161622_912.jpg">
 
 First trials only use one of the two antennas, the second one will be added for recording the
 surveillance signal.
+
+For the B210, use the software found in <a href="./b210_to_file/">b210_to_file</a> directory.
+
+For the M2SDR, ``insmod m2sdr.ko`` and
+```
+cd litex_m2sdr/software/kernel/
+sudo insmod m2sdr.ko
+sudo $HOME/litex_m2sdr/litex_m2sdr/software/user/m2sdr_rf --rx_freq 1229e6 --rx_gain 60  --samplerate 22e6
+time sudo  $HOME/litex_m2sdr/litex_m2sdr/software/user/m2sdr_record /tmp/tmp.bin 7760000000
+```
+states that the acquisition time to fill the 8 GB ramdisk is ``real 0m44.351s``.
+
 
 ## Result
 
