@@ -222,7 +222,7 @@ states that the acquisition time to fill the 8 GB ramdisk is ``real 0m44.351s``.
 
 The following is a passive bistatic analysis of the signals recorded using a B210 SDR sampling
 at 22 MS/s with a reference antenna facing the satellite and the surveillance antenna located 
-on the roof of ENSMM university in Besancon, France (47N, 6E). 
+on the roof of ENSMM university in Besancon, France (47N, 6E) with a color range from -30 to 0 dB. 
 
 <img src="260314_ENSMM_tripod/260314small.jpg">
 
@@ -233,7 +233,8 @@ from the train station:
 
 The following is a passive bistatic analysis of the signals recorded using a M2SDR sampling at
 22 MS/s with a reference antenna facing the satellite and the surveillance antenna located on 
-the roof of ENSMM university in Besancon, France (47N, 6E). 
+the roof of ENSMM university in Besancon, France (47N, 6E) with a threshold set to -25 dB
+and a color range from -30 to 0 dB. 
 
 <img src="260319_ENSMM_M2SDR/260317_XY_m30dB_51deg_transp_map_dem_wide_small.png">
 
