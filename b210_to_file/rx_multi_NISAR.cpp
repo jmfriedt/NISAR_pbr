@@ -32,11 +32,11 @@ int UHD_SAFE_MAIN(int argc, char* argv[])
         ("args", po::value<std::string>(&args)->default_value("num_recv_frames=1024"), "single uhd device address args")
         ("secs", po::value<double>(&seconds_in_future)->default_value(1.5), "number of seconds in the future to receive")
         ("nsamps", po::value<size_t>(&total_num_samps)->default_value(0x0ffffff0), "total number of samples to receive")
-        ("rate", po::value<double>(&rate)->default_value(21e6), "rate of incoming samples")
+        ("rate", po::value<double>(&rate)->default_value(22e6), "rate of incoming samples")
         ("freq", po::value<double>(&freq)->default_value(1229e6), "center frequency")
         ("lo_offset", po::value<double>(&lo_offset)->default_value(0), "frequency offset")
         ("sync", po::value<std::string>(&sync)->default_value("now"), "synchronization method: now, pps, mimo")
-        ("gain", po::value<double>(&gain)->default_value(51), "gain for the RF chain")
+        ("gain", po::value<double>(&gain)->default_value(48), "gain for the RF chain")
         ("subdev", po::value<std::string>(&subdev), "subdev spec (homogeneous across motherboards)")
         ("channels", po::value<std::string>(&channel_list)->default_value("0,1"), "which channel(s) to use (specify \"0\", \"1\", \"0,1\", etc)")
     ;
@@ -98,13 +98,16 @@ int UHD_SAFE_MAIN(int argc, char* argv[])
                   << std::endl;
 
     // set the rf gain
-    std::cout << boost::format("Setting RX Gain: %f dB...") % gain << std::endl;
-    usrp->set_rx_gain(gain, 0);
+    std::cout << boost::format("Setting RX1 Gain: %f dB...") % gain << std::endl;
+    usrp->set_rx_gain(gain+22, 0);
     usrp->set_rx_gain(gain, 1);
-    std::cout << boost::format("Actual RX Gain: %f dB...")
-                         % usrp->get_rx_gain(0)
-                  << std::endl
-                  << std::endl;
+    std::cout << boost::format("Actual RX0 Gain: %f dB...") % usrp->get_rx_gain(0) << std::endl;
+    std::cout << boost::format("Actual RX1 Gain: %f dB...") % usrp->get_rx_gain(1) << std::endl << std::endl;
+
+    std::cout << boost::format("Setting antennas TX/RX...") << std::endl << std::endl;
+    std::string ant("TX/RX");
+    usrp->set_rx_antenna(ant,0);
+    usrp->set_rx_antenna(ant,1);
 
     // set the antenna
 //   if (vm.count("ant"))
@@ -179,8 +182,8 @@ int UHD_SAFE_MAIN(int argc, char* argv[])
     double timeout = seconds_in_future + 0.1; // timeout (delay before receive + padding)
 
     std::ofstream outfile1, outfile2;
-    outfile1.open("/t/1.bin", std::ofstream::binary);
-    outfile2.open("/t/2.bin", std::ofstream::binary);
+    outfile1.open("/tmp/1.bin", std::ofstream::binary);
+    outfile2.open("/tmp/2.bin", std::ofstream::binary);
 
     size_t num_acc_samps = 0; // number of accumulated samples
 for (int jmf=0;jmf<6;jmf++)   // 8 GB RPi4
