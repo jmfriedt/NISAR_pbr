@@ -55,7 +55,8 @@ as I+jQ
 
 <img src="XYcomplex_conj.png">
 
-and flipped after correcting for I-jQ
+and flipped after correcting for I-jQ as done in the <a href="nisar_process5.m">
+nisar_process5.m</a>:
 
 <img src="XY.png">
 
@@ -65,6 +66,7 @@ Projecting on the map+DEM validates the source of the reflections
 
 Since the MAX2771 samples with low resolution ADCs, attempts were made
 to replace the reference channel with synthetic chirps, requiring to match
-the time delay and phase of the observed signal:
+the time delay and phase of the observed signal: see the <a href="nisar_process6.m">
+nisar_process6.m</a> script aimed at performing such a computation
 
 <img src="XY_synthetic_windowing.png">
