@@ -21,7 +21,9 @@ sudo PocketSDR/app/pocket_conf/pocket_conf
 ```
 sudo PocketSDR/app/pocket_dump/pocket_dump /tmp/1.bin /tmp/2.bin
 ```
-The recording only started a few seconds before the predicted maximum elevation 
+The recording only started a few seconds before the maximum elevation time predicted
+by <a href="https://www.heavens-above.com/PassSummary.aspx?satid=65053&lat=47.2505&lng=5.9881&loc=Unnamed&alt=0&tz=UCT&showall=t">Heavens Above</a> for NISAR at our location
+(47.25N, 6E)
 
 <img src="260326_schedule.png">
 
