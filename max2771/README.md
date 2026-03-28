@@ -1,7 +1,7 @@
 # NISAR reception from PocketSDR clone with two MAX2771
 
 ```
-sudo PocketSDR/app/pocket_conf/pocket_conf ./pocket_NISAR_6MHz.conf 
+sudo PocketSDR/app/pocket_conf/pocket_conf ./pocket_NISAR_24MHz.conf 
 sudo PocketSDR/app/pocket_conf/pocket_conf 
 #  [CH1] F_LO =  1229.025000 MHz, F_ADC = 24.000000 MHz (IQ), F_FILT =  0.0 MHz, BW_FILT = 23.4 MHz
 #  [CH2] F_LO =  1229.025000 MHz, F_ADC =  0.000000 MHz (IQ), F_FILT =  0.0 MHz, BW_FILT = 23.4 MHz
