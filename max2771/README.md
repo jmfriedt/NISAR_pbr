@@ -1,6 +1,8 @@
 # NISAR reception from PocketSDR clone with two MAX2771
 
-Experimental setup: two Ardusimple Multiband GNSS antennas are fitted
+## Experimental setup
+
+Two Ardusimple Multiband GNSS antennas are fitted
 to the MAX2771-based PocketSDR clone. One antenna is facing the sky
 at an angle of about 45 degrees in the direction NISAR is beaming from
 (East or West depending on ascending or descending pass) while the second
@@ -9,6 +11,8 @@ ground plane of the reference antenna shields the surveillance antenna from
 the direct signal.
 
 <img src="IMG_20260328_151637_801.png"><img src="IMG_20260328_151650_199.png"><img src="IMG_20260328_151700_915.png">
+
+## Data acquisition
 
 Configuring the PocketSDR to record a 24 MHz bandwidth around 1229 MHz:
 ```
@@ -50,6 +54,8 @@ Change: 2026-03-26 19:51:43.824067742 +0100
 
 but still allowed to collect useful data on the surveillance and 
 reference channels.
+
+## Signal processing
 
 Because the MAX2771 provides the complex conjugate of the IQ stream (i.e. I-jQ)
 the original image was upside down when interpreting the file record content
