@@ -11,3 +11,9 @@ cancellation whose purpose is exactly to remove the reference from the short ran
 Settings:
 * surveillance on A with 55+20 dB gain
 * reference on B with 55 dB gain
+
+<img src="mapXY_51.png">
+
+Heavens Above prediction:
+
+<img src="2026-02-12-071924_2704x1050_scrot.png">
