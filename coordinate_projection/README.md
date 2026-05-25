@@ -62,7 +62,7 @@ The result is
 so -3.8 m and 100 m in XY (all Z are 0) irrelevant of the time of the
 simulation, differring from ITRS by another 3.8 m. 
 
-Hence, the carthesian position of the satellite with respect to the
+Hence, the cartesian position of the satellite with respect to the
 ground receiver is best computed using this approach which provides a
 result independent of time and (mostly) consistent with UTM projected 
 coordinates.
