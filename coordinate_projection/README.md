@@ -2,7 +2,9 @@
 
 ## Problem statement
 
-The receiver location in WGS84/UTM31N is 726236 E, 5236937 N.
+The receiver location in WGS84/UTM31N is 726236 E, 5236937 N. We wish to match the
+predicted satellite position with respect to this receiver location, provided in the
+same framework than a Digital Elevation Model (DEM) we are using.
 
 According to https://rhodesmill.org/skyfield/api-topos.html, ``skyfield`` provides
 coordinates in ITRS framework, which generate XYZ coordinates dependent on time.
