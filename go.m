@@ -3,9 +3,9 @@ lon=str2num(argv{1});
 lat=str2num(argv{2});
 
 % known altitude
-alti=750000; % m
+alti=748000; % m
 % known radar mean angle
-angle=40   ; % degrees
+angle=41   ; % degrees
 % known polar orbit
 ang=8.4    ; % degrees
 hei=lat+alti*tand(angle)*sind(ang);  % /!\ LEFT looking !

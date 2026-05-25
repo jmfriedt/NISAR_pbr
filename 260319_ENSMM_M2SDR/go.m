@@ -32,7 +32,6 @@ min_PRI=400e-6;  % PRI > 400 us
 
 Nmax=round(max_PRI*fs)  % distance between two PRI sweeps
 Nmin=round(min_PRI*fs)  % distance between two PRI sweeps
-Npuls=500;
 threshold=10
 m=1;
 q=0;

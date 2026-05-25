@@ -32,4 +32,3 @@ echo ""
 echo "RIGHT: " $righ $heir "(keep ascending)"
 cat predict_template.py | sed "s/LATC/$lat/g" | sed "s/LONC/$lon/g" | sed "s/LAT/$heir/g" | sed "s/LON/$righ/g" > predict.py
 python3 predict.py | grep ascending
-

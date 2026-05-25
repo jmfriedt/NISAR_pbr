@@ -1,9 +1,9 @@
 # Passive Bistatic RADAR using the spaceborne L and S-band NISAR satellite signal
 
-A. Witze, *Arctic scientists iced out by radar mission*, Nature **566** (7 Feb. 2019): "Most other SAR missions are right-looking 
+A. Witze, *Arctic scientists iced out by radar mission*, Nature **566** (7 Feb. 2019): "Most other SAR missions are right-looking
 [... but...] NISAR science team decided to make its satellite **left-looking** for its entire primary mission."
-confirmed by https://science.nasa.gov/mission/nisar/observation-strategy/: "As NISAR will be only **left-looking** -- a change in 
-observation tactics since the early planning stages -- the mission will rely on data from the international constellation of 
+confirmed by https://science.nasa.gov/mission/nisar/observation-strategy/: "As NISAR will be only **left-looking** -- a change in
+observation tactics since the early planning stages -- the mission will rely on data from the international constellation of
 SAR satellites to supplement its coverage around the Arctic pole" (last updated Jul 23, 2025).
 
 Funny enough, this <a href="https://science.nasa.gov/video-detail/amf-1a1ed0e7-59b4-4a9d-acc5-d52896620f2b/">video</a> from the NASA
@@ -11,7 +11,7 @@ web site still shows the spaceborne RADAR shooting to the right, as does <a href
 
 ## Need to know when to listen
 
-From the TLE orbital parameters, the known satellite altitude and the known 
+From the TLE orbital parameters, the known satellite altitude and the known
 RADAR look angle (angle between antenna pointing and nadir) we can predict when
 NISAR will be illuminating a given location. **Script update (Dec. 24, 2025): following
 the failure to record a signal, I discovered that NISAR is left looking, not right-looking
@@ -29,8 +29,8 @@ convert from spherical (WGS84) to projected (UTM32N for France) and back.
 * ``nisar_tle*.txt``: orbital parameters of the satellite, to be updated from <a href="http://www.celestrak.org/NORAD/elements/gp.php?CATNR=65053">Celestrak</a> every
 month or so. These entries are used to plot the ground tracks in QGIS and copied into
 the following Python template script.
-* ``predict_template.py``: <a href="https://rhodesmill.org/skyfield/">SkyField</a> 
-based Python program to predict passes with highest 
+* ``predict_template.py``: <a href="https://rhodesmill.org/skyfield/">SkyField</a>
+based Python program to predict passes with highest
 elevations and hence listening time. Verified against <a href="https://www.heavens-above.com/">Heavens Above</a> for its excellent prediction
 capability.
 
@@ -63,7 +63,7 @@ but
 LEFT
 2025 Dec 22 17:40:20 culminate
 2025 Dec 27 06:41:19 culminate          <- remove left morning pass
- 
+
 RIGHT:
 2025 Dec 23 05:35:25 culminate
 2025 Dec 25 16:26:30 culminate          <- remove right evening pass
@@ -75,7 +75,7 @@ Dec. 9 and 12 leading to 21 and 24 are not predicted from the orbital parameters
 
 Looking at the trajectory in QGIs:
 
-<img src="besac_s1a.png"> 
+<img src="besac_s1a.png">
 
 the green tracks match illumination of the receiver site, and the red ones do not (beaming in the wrong direction).
 
@@ -89,7 +89,7 @@ From this analysis, NISAR is expected to illuminate Paris on
 2026 Jan 03 19:07:45 UTC
 ```
 
-with the Dec. 27 pass slightly off angle at 81 degrees instead of max. 83 degrees since 40+/-7 
+with the Dec. 27 pass slightly off angle at 81 degrees instead of max. 83 degrees since 40+/-7
 translates to 90+/-7 >= 83 at azimuth. The beamwidth is $\lambda/D$ with $\lambda\simeq 300/1250=24$ cm at
 L-band and $D=12$ m leading to a beamwidth (-3 dB) of 1.1 degrees.
 
@@ -98,7 +98,7 @@ The ground projected tracks are generated using ``gtg``:
 <img src="251227/paris_nisar.png">
 
 All ground tracks were plotted using <a href="https://github.com/anoved/Ground-Track-Generator">Ground
-Track Generator</a> with the command 
+Track Generator</a> with the command
 ```
 gtg --input nisar_tle.txt --output 251227 --start "2025-12-27 18:59:00.0 UTC" --end "2025-12-27 19:05:00.0 UTC" --interval 5s
 ```
@@ -114,11 +114,11 @@ is illuminating in the wrong direction (ascending West and descending East).
 ## Frequency settings
 
 NISAR <a href="https://www.eoportal.org/ftp/satellite-missions/n/NISAR-25032021/NISAR.html">broadcasts</a>
-at 1257.5+/-20 MHz and 3200+/-37.5 MHz. The L-band is within the reach of the lower L2/L5 band of the 
+at 1257.5+/-20 MHz and 3200+/-37.5 MHz. The L-band is within the reach of the lower L2/L5 band of the
 MAX2771 (1160-1290 MHz). GNSS SDR receivers and <a href="https://www.ardusimple.com/product/antenna-for-gnss-multiband-oem/">L2-GPS/E6-Galileo multiband antennas</a> are well suited for
 the reception.
 
-P.A. Rosen & al, *The NASA-ISRO SAR Mission -- A summary*, IEEE Geoscience and Remote Sensing Mag. (June 2025) 
+P.A. Rosen & al, *The NASA-ISRO SAR Mission -- A summary*, IEEE Geoscience and Remote Sensing Mag. (June 2025)
 shows in Fig. 16 that all frequency plans *start* at the same frequency, namely
 **1221.5 MHz**, with a split emission at the beginning of the band (20 MHz wide) and end to assess ionospheric
 contribution, to the delay:
@@ -128,17 +128,17 @@ contribution, to the delay:
 ## December 27, 2025 illumination of Paris (France)
 
 Based on this analysis, NISAR is predicted to illuminate Paris (France) on Dec. 27, 2025, at 19:59 local time. A
-10 minute recording from 19:54 to 20:04 local time at 6 MS/s was collected using a B210 fitted with a bias-T and a 
+10 minute recording from 19:54 to 20:04 local time at 6 MS/s was collected using a B210 fitted with a bias-T and a
 dual L-band GNSS antenna. From Heavens Above:
 
 <img src="251227/251227PassSkyChart2.png">
 
 <img src="251227/251227schedule.png">
 
-the satellite illuminates from the West (descending pass since beaming leftward) at a maximum elevation of 
+the satellite illuminates from the West (descending pass since beaming leftward) at a maximum elevation of
 53 degrees, matching the https://bhoonidhi.nrsc.gov.in/NISAR/ mean illumination angle of 37 degrees (=90-53).
 
-The resulting magnitude (standard deviation as square root of the variance) as a function of time, and 
+The resulting magnitude (standard deviation as square root of the variance) as a function of time, and
 off-center auto-correlation (the 0-delay autocorrelation is the variance) of the recording:
 
 <img src="251227/nisar_abs_time.png">
@@ -155,18 +155,18 @@ and deduced non-constant pulse repetition interval:
 
 <img src="251227/nisar_PRI.png">
 
-Since only 6-MHz bandwidth (limited by the B210 transfer rate, even using the 
+Since only 6-MHz bandwidth (limited by the B210 transfer rate, even using the
 <a href="251227/b210_NISAR_recording.py">8-bit Over the Wire</a> format) of
 the potentially 20-MHz wide chirp was recorded, the pulse duration cannot be
-observed directly. The 5.5 us duration matches a 20 us duration of the 20 MHz 
+observed directly. The 5.5 us duration matches a 20 us duration of the 20 MHz
 wide pulse with only a fraction of the bandwidth being recorded.
 
 ## January 03, 2026 illumination of Paris (France)
 
 To demonstrate that the previous measurement was not sheer luck, the analysis was repeated
-for January 2026: Jan. 03, 2025, at 20:07 local time is predicted to provide a suitable 
-condition. A 10 minute recording from 20:02 to 20:12 local time at 6 MS/s was collected using 
-a B210 fitted with a bias-T and a dual L-band GNSS antenna, <a href="260103/b210_NISAR.py">this 
+for January 2026: Jan. 03, 2025, at 20:07 local time is predicted to provide a suitable
+condition. A 10 minute recording from 20:02 to 20:12 local time at 6 MS/s was collected using
+a B210 fitted with a bias-T and a dual L-band GNSS antenna, <a href="260103/b210_NISAR.py">this
 time centered on 1223.5 MHz</a> to record more of the 20 MHz-wide chirp. From Heavens Above:
 
 <img src="260103/260103PassSkyChart2.png">
@@ -175,7 +175,7 @@ time centered on 1223.5 MHz</a> to record more of the 20 MHz-wide chirp. From He
 
 the satellite illuminates from the West (descending pass since beaming leftward).
 
-The resulting magnitude (standard deviation as square root of the variance) as a function of time, and 
+The resulting magnitude (standard deviation as square root of the variance) as a function of time, and
 off-center auto-correlation (the 0-delay autocorrelation is the variance) of the recording:
 
 <img src="260103/nisar_abs_time260103.png">
@@ -183,7 +183,7 @@ off-center auto-correlation (the 0-delay autocorrelation is the variance) of the
 Recording started at 20:02:31.7 (according to ``stat`` on the resulting binary file) and the
 maximum power is recorded after 283 seconds so 20:07:14.7 close enough to the predicted 20:07:16. There
 is no need to record a full 10 minute, +/-5 minute around the predicted pass time, but a few tens of
-seconds seem enough, saving disk space and processing time. 
+seconds seem enough, saving disk space and processing time.
 
 The time-domain chirp including its duration and repetition interval
 
@@ -195,9 +195,9 @@ and deduced non-constant pulse repetition interval:
 
 ## Experimental setup
 
-An Ettus Research B210 or Enjoy Digital M2SDR SDR fitted with two 
-<a href="https://www.ardusimple.com/product/antenna-for-gnss-multiband-oem/">Ardusimple OEM</a> antennas 
-powered through a bias T: the DC supply is either from a power-pack or a USB port of the laptop. 
+An Ettus Research B210 or Enjoy Digital M2SDR SDR fitted with two
+<a href="https://www.ardusimple.com/product/antenna-for-gnss-multiband-oem/">Ardusimple OEM</a> antennas
+powered through a bias T: the DC supply is either from a power-pack or a USB port of the laptop.
 Maximum datarate from B210 to laptop of 22 MS/s to benefit from the full bandwidth of the 20 MHz wide
 NISAR chirps requires setting ``num_recv_frames=1024`` as UHD argument.
 
@@ -221,8 +221,8 @@ states that the acquisition time to fill the 8 GB ramdisk is ``real 0m44.351s``.
 ## Result
 
 The following is a passive bistatic analysis of the signals recorded using a B210 SDR sampling
-at 22 MS/s with a reference antenna facing the satellite and the surveillance antenna located 
-on the roof of ENSMM university in Besancon, France (47N, 6E) with a color range from -30 to 0 dB. 
+at 22 MS/s with a reference antenna facing the satellite and the surveillance antenna located
+on the roof of ENSMM university in Besancon, France (47N, 6E) with a color range from -30 to 0 dB.
 
 <img src="260314_ENSMM_tripod/260314small.jpg">
 
@@ -232,9 +232,14 @@ from the train station:
 <img src="260314_ENSMM_tripod/DSC03269small.jpg">
 
 The following is a passive bistatic analysis of the signals recorded using a M2SDR sampling at
-22 MS/s with a reference antenna facing the satellite and the surveillance antenna located on 
+22 MS/s with a reference antenna facing the satellite and the surveillance antenna located on
 the roof of ENSMM university in Besancon, France (47N, 6E) with a threshold set to -25 dB
-and a color range from -30 to 0 dB. 
+and a color range from -30 to 0 dB.
 
 <img src="260319_ENSMM_M2SDR/260317_XY_m30dB_51deg_transp_map_dem_wide_small.png">
 
+Update April 2026: <a href="https://search.asf.alaska.edu/#/?dataset=NISAR&prodConfig=PR&zoom=6.780&center=5.905,45.110&polygon=POLYGON((5.9408%2047.1541,6.1897%2047.1541,6.1897%2047.3181,5.9408%2047.3181,5.9408%2047.1541))&resultsLoaded=true&granule=NISAR_L1_PR_RSLC_005_066_D_064_2005_DHDH_A_20251114T185029_20251114T185104_X05009_N_F_J_001">ASF</a> is now publishing NISAR data and only identifies
+one illumination condition of the Besancon area (France) at 18:50 UTC (descending) at days
+multiple of 12 days following Jan. 1st. We have succeeded in receiving signals during the descending
+passes at 18:43 UTC during days multiple of 12 days after Jan. 6 but have failed during the
+ascending pass of 04:19 UTC at days multiple of 12 days after Jan 07.
