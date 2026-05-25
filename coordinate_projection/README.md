@@ -83,7 +83,7 @@ output framework (red) with respect to the input framework (blue):
 
 The issue seems to lie in the "Grid convergence" as discussed
 <a href="https://gis.stackexchange.com/questions/115531/calculating-grid-convergence-true-north-to-grid-north">here</a> and <a href="https://en.wikipedia.org/wiki/Transverse_Mercator_projection#Convergence">here</a>, namely that the UTM north is not the local north at the location
-we are calculating the grid on. The angle correction is
+we are calculating the grid on. The convergence angle correction is
 $$\gamma(\lambda,\phi)=atan(tan(\lambda)\times sin(phi))$$ with $\lambda$ the
 offset to the central meridian of the UTM projection <a href="https://gis.stackexchange.com/questions/115531/calculating-grid-convergence-true-north-to-grid-north">defined as</a> 
 $$central meridian degrees = (zone number - 1.0) * 6.0 - 180.0 + 3.0$$ and
@@ -97,3 +97,8 @@ after rotation, exactly match the expected position (green crosses overlapping b
 
 <img src="rotation_corrected.png">
 
+The conclusion can be <a href="map_diff.m">generalized</a> to any latitude/longitude within 
+each UTM zone, with the red dot highlighting our experimental condition, unluckily enhanced 
+by being at the limit between two UTM zones.
+
+<img src="correction.png">
