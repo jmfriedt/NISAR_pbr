@@ -66,3 +66,8 @@ sqrt(sum([-3.83739442e+00 9.99032182e+01 -7.82153648e-04].^2))=99.977
 sqrt(sum([9.99032450e+01  3.83742330e+00 -7.84574849e-04].^2))=99.977
 sqrt(sum([9.60657949e+01  1.03740639e+02 -1.56654115e-03].^2))/sqrt(2)=99.977
 ```
+
+Despite the distance being (mostly) correct, we observe a rotation on the
+output framework with respect to the input framework:
+
+<img src="rotation.png">
