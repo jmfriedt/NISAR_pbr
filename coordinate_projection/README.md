@@ -89,7 +89,7 @@ offset to the central meridian of the UTM projection <a href="https://gis.stacke
 $$central meridian degrees = (zone number - 1.0) * 6.0 - 180.0 + 3.0$$ and
 $\phi$ the latitude.
 
-So at $phi=47$ deg North and 6 East, the central meridian of UTM31N being $(31-1)*6-180+3=3$ so
+So at $\phi=47$ deg North and 6 East, the central meridian of UTM31N being $(31-1)*6-180+3=3$ so
 $\lambda=6-3=3$ and $atand(tand(3)*sind(47))=2.2$ degrees.
 
 In the <a href="go.m">go.m</a> script, the rotation is applied and the skyfield output,
