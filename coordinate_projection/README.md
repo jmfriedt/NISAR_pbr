@@ -1,3 +1,7 @@
+# Matching Skyfield output to UTM coordinates
+
+## Problem statement
+
 The receiver location in WGS84/UTM31N is 726236 E, 5236937 N.
 
 According to https://rhodesmill.org/skyfield/api-topos.html, ``skyfield`` provides
@@ -74,7 +78,7 @@ output framework (red) with respect to the input framework (blue):
 
 # Grid convergence
 
-The issue seems to lie in the "Grid convergence" as discussed at
+The issue seems to lie in the "Grid convergence" as discussed
 <a href="https://gis.stackexchange.com/questions/115531/calculating-grid-convergence-true-north-to-grid-north">here</a> and <a href="https://en.wikipedia.org/wiki/Transverse_Mercator_projection#Convergence">here</a>, namely that the UTM north is not the local north at the location
 we are calculating the grid on. The angle correction is
 $$\gamma(\lambda,\phi)=atan(tan(\lambda)\times sin(phi))$$ with $\lambda$ the
