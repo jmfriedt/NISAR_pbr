@@ -1,6 +1,4 @@
-The receiver location in WGS84/UTM31N is
-726236 E
-5236937 N
+The receiver location in WGS84/UTM31N is 726236 E, 5236937 N.
 
 According to https://rhodesmill.org/skyfield/api-topos.html, ``skyfield`` provides
 coordinates in ITRS framework, which generate XYZ coordinates dependent on time.
@@ -16,6 +14,8 @@ meaning the ITRS is a fixed framework in space, not rotating with the Earth.
 
 In ``predict_verification.py``, we select 4 points, one at the receiver location
 and another 3 offset by 100 m in X, in Y and in both XY, in WGS84/UTM31N.
+
+<img src="2026-05-25-104238_2944x1080_scrot.png">
 
 These coordinates are exported using QGIS to WGS84 (EPSG:4326) and used in the
 skyfield validation program.
