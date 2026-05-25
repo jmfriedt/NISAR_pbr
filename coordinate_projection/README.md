@@ -16,8 +16,9 @@ print(LocationC.at(ti+1/24).position.m)   # position of receiver 1h later
 
 meaning the ITRS is a fixed framework in space, not rotating with the Earth.
 
-In ``predict_verification.py``, we select 4 points, one at the receiver location
-and another 3 offset by 100 m in X, in Y and in both XY, in WGS84/UTM31N.
+In <a href="predict_verification.py">``predict_verification.py``</a>, we 
+select 4 points, one at the receiver location and another 3 offset by 100 m 
+in X, in Y and in both XY, in WGS84/UTM31N.
 
 <img src="2026-05-25-104238_2944x1080_scrot.png">
 
