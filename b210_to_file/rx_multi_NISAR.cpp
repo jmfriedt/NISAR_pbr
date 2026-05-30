@@ -29,7 +29,7 @@ int UHD_SAFE_MAIN(int argc, char* argv[])
     // clang-format off
     desc.add_options()
         ("help", "help message")
-        ("args", po::value<std::string>(&args)->default_value("num_recv_frames=1024"), "single uhd device address args")
+        ("args", po::value<std::string>(&args)->default_value("num_recv_frames=1024,num_send_frames=1024"), "single uhd device address args")
         ("secs", po::value<double>(&seconds_in_future)->default_value(1.5), "number of seconds in the future to receive")
         ("nsamps", po::value<size_t>(&total_num_samps)->default_value(0x0ffffff0), "total number of samples to receive")
         ("rate", po::value<double>(&rate)->default_value(22e6), "rate of incoming samples")
@@ -186,7 +186,7 @@ int UHD_SAFE_MAIN(int argc, char* argv[])
     outfile2.open("/tmp/2.bin", std::ofstream::binary);
 
     size_t num_acc_samps = 0; // number of accumulated samples
-for (int jmf=0;jmf<6;jmf++)   // 8 GB RPi4
+for (int jmf=0;jmf<7;jmf++)   // 8 GB RPi4
    {num_acc_samps = 0; // number of accumulated samples
     while (num_acc_samps < total_num_samps) {
         // receive a single packet

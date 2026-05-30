@@ -1,3 +1,7 @@
+# B210 to file (22 MS/s)
+
+## On an single board ARM computer
+
 Data acquisition software to be cross-compiled on the host computer targeted 
 towards the Raspberry Pi 4 or 5 single board computer. The ``Makefile`` assumes 
 a Buildroot cross-compilation framework is available on the host and the 
@@ -11,3 +15,10 @@ at full speed by executing
 
 since the Buildroot default configuration is to use the energy saving 
 configuration with the processor running at lower (800 MHz) speed.
+
+## On an x86 laptop
+
+```
+time sudo nice -n -20 ./rx_multi_NISAR 
+sudo rm /tmp/?.bin
+```
