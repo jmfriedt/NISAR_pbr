@@ -77,8 +77,8 @@ clear d
 
 pindx=kpos(8000:8000+P+L);
 
- fseek(f1,2*pindx(1)-AS-1-L);  % complex char = 2x2
- fseek(f2,2*pindx(1)-AS-1-L);  % complex char = 2x2
+ fseek(f1,2*pindx(1)-AS-1-L);  % complex char = 2x
+ fseek(f2,2*pindx(1)-AS-1-L);  % complex char = 2x
  d=fread(f1,(pindx(end)-pindx(1)+Nr+L)*2,'int8');ref1=d(1:2:end)-j*d(2:2:end);
  d=fread(f2,(pindx(end)-pindx(1)+Nr+L)*2,'int8');sur1=d(1:2:end)-j*d(2:2:end);
  pindx=pindx-(pindx(1)-AS)+1+L;

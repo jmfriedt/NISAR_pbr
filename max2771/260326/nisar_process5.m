@@ -57,8 +57,8 @@ clear d
 
 pindx=kpos(9000:9000+P+L);
 
- fseek(f1,2*pindx(1)-AS-1-L);  % complex char = 2x2
- fseek(f2,2*pindx(1)-AS-1-L);  % complex char = 2x2
+ fseek(f1,2*pindx(1)-AS-1-L);  % complex char = 2x
+ fseek(f2,2*pindx(1)-AS-1-L);  % complex char = 2x
  d=fread(f1,(pindx(end)-pindx(1)+Nr+L)*2,'int8');ref1=d(1:2:end)-j*d(2:2:end);
  d=fread(f2,(pindx(end)-pindx(1)+Nr+L)*2,'int8');sur1=d(1:2:end)-j*d(2:2:end);
  pindx=pindx-(pindx(1)-AS)+1+L;
@@ -86,8 +86,8 @@ pindx=kpos(9000:9000+P+L);
  Ssur_fft = zeros(Nr,P);
  S = zeros(Nr,P);
  for p = 1:P
-     Sref_fft(:,p) = fftshift(fft(Sref(:,p)-mean(Sref(:,p))));
-     Ssur_fft(:,p) = fftshift(fft(Ssur(:,p)-mean(Ssur(:,p))));
+     Sref_fft(:,p) = fftshift(fft(Sref(:,p)));
+     Ssur_fft(:,p) = fftshift(fft(Ssur(:,p)));
      S(:,p) = Ssur_fft(:,p).*conj(Sref_fft(:,p));
  end
 
