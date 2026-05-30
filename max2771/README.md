@@ -29,7 +29,7 @@ The recording only started a few seconds before the maximum elevation time predi
 by <a href="https://www.heavens-above.com/PassSummary.aspx?satid=65053&lat=47.2505&lng=5.9881&loc=Unnamed&alt=0&tz=UCT&showall=t">Heavens Above</a> for NISAR at our location
 (47.25N, 6E)
 
-<img src="260326_schedule.png">
+<img src="260326/260326_schedule.png">
 
 ```
 $ stat /tmp/1.bin
@@ -61,20 +61,20 @@ Because the MAX2771 provides the complex conjugate of the IQ stream (i.e. I-jQ)
 the original image was upside down when interpreting the file record content
 as I+jQ
 
-<img src="XYcomplex_conj.png">
+<img src="260326/XYcomplex_conj.png">
 
 and flipped after correcting for I-jQ as done in the <a href="nisar_process5.m">
 nisar_process5.m</a>:
 
-<img src="XY.png">
+<img src="260326/XY.png">
 
 Projecting on the map+DEM validates the source of the reflections
 
-<img src="XY_map_DEM.png">
+<img src="260326/XY_map_DEM.png">
 
 Since the MAX2771 samples with low resolution ADCs, attempts were made
 to replace the reference channel with synthetic chirps, requiring to match
 the time delay and phase of the observed signal: see the <a href="nisar_process6.m">
 nisar_process6.m</a> script aimed at performing such a computation
 
-<img src="XY_synthetic_windowing.png">
+<img src="260326/XY_synthetic_windowing.png">
