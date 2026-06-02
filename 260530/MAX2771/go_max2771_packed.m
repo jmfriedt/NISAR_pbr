@@ -9,7 +9,7 @@ N=fs/4;
 f=fopen('max2771_12.bin');
 
 fseek(f,fs*27);
-x=fread(f,N,'uint8'); 
+x=fread(f,N,'uint8');       % /!\ MUST be unsigned, otherwise the sign of Q1 is lost
 i0=bit2val(bitand(x,3)+1);
 q0=bit2val(bitand(bitshift(x,-2),3)+1);
 i1=bit2val(bitand(bitshift(x,-4),3)+1);
