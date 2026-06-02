@@ -1,5 +1,7 @@
 # Combined B210 and MAX2771 raw data recording
 
+<img src="IMG_20260530_203757_034small.jpg">
+
 Reference is MAX2771 channel 2/B210 channel B
 
 Surveillance is MAX2771 channel 1/B210 channel A
@@ -39,3 +41,4 @@ total 8916408
 -rw-r--r-- 1 jmfriedt jmfriedt 3124129440 May 30 20:43 1.bin
 -rw-r--r-- 1 jmfriedt jmfriedt 3124129440 May 30 20:43 2.bin
 ```
+
