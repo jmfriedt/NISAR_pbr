@@ -6,3 +6,5 @@ the time when the beam illuminated the receivers
 <img src="alphabeta.png">
 
 <img src="XY.png">
+
+<img src="Layout.png">
