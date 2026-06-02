@@ -56,3 +56,4 @@ do
   d=fread(f,N*2,'int8'); ref=d(1:2:end)+j*d(2:2:end);
   q=q+p-1;
 until (length(d)<N*2);
+save -mat kpos.mat kpos

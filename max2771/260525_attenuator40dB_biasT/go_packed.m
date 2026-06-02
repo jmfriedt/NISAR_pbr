@@ -71,3 +71,4 @@ do
   ref=i1-j*q1;
   q=q+p-1;
 until ((length(x)<N)|(m>4500));
+save -mat kpos.mat kpos
