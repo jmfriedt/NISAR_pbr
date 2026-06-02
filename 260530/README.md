@@ -1,6 +1,12 @@
 # Combined B210 and MAX2771 raw data recording
 
+## Experimental setup
+
 <img src="IMG_20260530_203757_034small.jpg">
+
+<img src="b210_max2771.png">
+
+## Data acquisition
 
 Reference is MAX2771 channel 2/B210 channel B
 
