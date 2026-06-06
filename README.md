@@ -111,6 +111,22 @@ We can convince that the Dec. 27, 2025 at 18h49 UTC pass is decending by extendi
 seeing NISAR fly southward (dark green dots). The reds paths are again excluded from the analysis since the beam
 is illuminating in the wrong direction (ascending West and descending East).
 
+**Update 6/6/2026**: being concerned that the prediction time were differing between Heavens Above and 
+Skyfield by about 30 seconds, I figured out that due to the orbit inclination, the maximum elevation 
+time over the point at which NISAR is expected to illuminate the receivers is not the same as the maximum 
+elevation of the satellite seen from the receivers location. The script was updated to first estimate the
+time when the satellite passes at zenith of the location from which NISAR illuminates the target, and
+then re-compute the maximum elevation from the receivers location at this time +/-1 h. The result now matches
+Heaves above to within 1 second:
+
+```
+Heaves Above:
+6 Jun 18:51:04 44° WNW
+
+Skyfield (go.sh using predict_template.py)
+Jun 06 18:51:03 max elevation 43deg 49' 13.8" at 291deg 52' 57.4" descending
+```
+
 ## Frequency settings
 
 NISAR <a href="https://www.eoportal.org/ftp/satellite-missions/n/NISAR-25032021/NISAR.html">broadcasts</a>
@@ -239,7 +255,7 @@ and a color range from -30 to 0 dB.
 <img src="260319_ENSMM_M2SDR/260317_XY_m30dB_51deg_transp_map_dem_wide_small.png">
 
 Update April 2026: <a href="https://search.asf.alaska.edu/#/?dataset=NISAR&prodConfig=PR&zoom=6.780&center=5.905,45.110&polygon=POLYGON((5.9408%2047.1541,6.1897%2047.1541,6.1897%2047.3181,5.9408%2047.3181,5.9408%2047.1541))&resultsLoaded=true&granule=NISAR_L1_PR_RSLC_005_066_D_064_2005_DHDH_A_20251114T185029_20251114T185104_X05009_N_F_J_001">ASF</a> is now publishing NISAR data and only identifies
-one illumination condition of the Besancon area (France) at 18:50 UTC (descending) at days
+one illumination condition of the Besancon area (France) at 18:51 UTC (descending) at days
 multiple of 12 days following Jan. 1st. We have succeeded in receiving signals during the descending
 passes at 18:43 UTC during days multiple of 12 days after Jan. 6 but have failed during the
 ascending pass of 04:19 UTC at days multiple of 12 days after Jan 07.
