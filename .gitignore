@@ -3,3 +3,9 @@
 *.prj
 *.shx
 *.jmf
+*.bsp
+*DEM*
+*.gbr
+*.drl
+*backups
+*.mat
