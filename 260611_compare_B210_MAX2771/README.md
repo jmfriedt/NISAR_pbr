@@ -100,9 +100,9 @@ from 7 to 17 seconds of the record, so space is saved with
 head -c 1496000000 2.bin | tail -c 880000000 > /tmp/ref.bin
 head -c 1496000000 1.bin | tail -c 880000000 > /tmp/sur.bin
 ```
-since $17*22e6*2*2$ is the end of the useful record (x2 short and x2 complex)
-and the duration is $10*22e6*2*2$ (sampling rate is 22 MS/s). The first 7 seconds
-were removed so the actual start time is
+since $17\times 22\cdot 10^6 \times 2\times 2$ is the end of the useful record (x2 short and 
+x2 complex) and the duration is $10\times 22\cdot 10^6\times 2\times 2$ (sampling rate is 
+22 MS/s). The first 7 seconds were removed so the actual start time is
 ``18:42:37.554437699+7=18:42:44.554437699`` and ``kpos(1)/fs=3.309532136363636`` so
 the start time is ``18:42:47.863969835363637``. This time is the one used for computing
 the position of the satellite in ``predict.py``.
