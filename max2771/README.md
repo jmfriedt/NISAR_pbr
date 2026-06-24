@@ -12,6 +12,11 @@ the direct signal.
 
 <img src="IMG_20260328_151637_801.png"><img src="IMG_20260328_151650_199.png"><img src="IMG_20260328_151700_915.png">
 
+The PocketSDR board jumpers must be set to feed the **lower-L** band amplifier and mixers 
+of the MAX2771s (as opposed to the more traditional upper-L band when analyzing GPS L1 signals).
+
+<img src="max2771_connection.png">
+
 ## Data acquisition
 
 Configuring the PocketSDR to record a 24 MHz bandwidth around 1229 MHz:
