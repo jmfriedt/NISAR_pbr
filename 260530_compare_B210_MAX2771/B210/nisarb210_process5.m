@@ -102,7 +102,7 @@ al_sat = linspeed*t0;
 beta_I = linspace(0,15000,2501);nbe = length(beta_I);
 F1 = exp(-1j*2*pi*freq*beta_I/c)/sqrt(Nr);
 
-al_I = linspace(-6e-3,6e-3,2001);nal = length(al_I);
+al_I = linspace(-7e-3,7e-3,3501);nal = length(al_I);
 F2 = exp(-1j*2*pi*al_sat*al_I/lembda)/sqrt(P);
 
 Image_I = F1'*S*conj(F2);
@@ -136,4 +136,4 @@ figure;imagesc(ym,xm,Image_xy_db.');axis xy;
 clim([-28,0]);colormap(jet);colorbar;
 xlabel('y (m)');ylabel('x (m)');
 ylabel(colorbar,'Normalized amplitude (dB)');
-set(gca,'FontName','Times New Roman','FontSize',14);
+%set(gca,'FontName','Times New Roman','FontSize',14);

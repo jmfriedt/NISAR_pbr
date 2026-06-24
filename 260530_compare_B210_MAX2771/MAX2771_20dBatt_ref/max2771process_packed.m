@@ -4,7 +4,7 @@ f=fopen('max2771_12.bin');
 N=fs/100;
 bit2val=[1,3,-1,-3];
 
-x=fread(f,N,'int8');
+x=fread(f,N,'uint8');
 i0=bit2val(bitand(x,3)+1);
 q0=bit2val(bitand(bitshift(x,-2),3)+1);
 i1=bit2val(bitand(bitshift(x,-4),3)+1);
