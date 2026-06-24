@@ -15,7 +15,7 @@ sat = EarthSatellite("1 65053U 25163A   26162.96271956  .00000214  00000-0  7759
 
 print(f"% {sat}")             # Confirms TLE was loaded successfully
 ts = load.timescale()  # Create a Skyfield timescale object for specifying times
-ti = ts.utc(2026, 6, 11, 18, 42, 47.863969835363637) # Specify year, month, day to start our search
+ti = ts.utc(2026, 6, 11, 18, 42, 49.363969835363637) # Specify year, month, day to start our search
 
 difference = sat - LocationC
 print('% '+ti.utc_strftime('%Y %b %d %H:%M:%S'))

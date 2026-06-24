@@ -103,8 +103,9 @@ head -c 1496000000 1.bin | tail -c 880000000 > /tmp/sur.bin
 since $17\times 22\cdot 10^6 \times 2\times 2$ is the end of the useful record (x2 short and 
 x2 complex) and the duration is $10\times 22\cdot 10^6\times 2\times 2$ (sampling rate is 
 22 MS/s). The first 7 seconds were removed so the actual start time is
-``18:42:37.554437699+7=18:42:44.554437699`` and ``kpos(1)/fs=3.309532136363636`` so
-the start time is ``18:42:47.863969835363637``. This time is the one used for computing
+``18:42:37.554437699+7=18:42:44.554437699`` and ``kpos(1)/fs=3.309532136363636`` and adding
+the 1.5 seconds inserted between file creation and B210 streaming, so
+the start time is ``18:42:49.363969835363637``. This time is the one used for computing
 the position of the satellite in ``predict.py``.
 
 Result of ``nisarbmax2771_process5.m``:
