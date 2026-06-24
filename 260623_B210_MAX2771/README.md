@@ -73,6 +73,15 @@ $ head -c 968000000 1.bin  | tail -c 616000000 > b210_sur.bin
 $ head -c 968000000 2.bin  | tail -c 616000000 > b210_ref.bin
 ```
 
+Calculation of the position of the satellite starting at time
+```
+20:42:41.611797200+4+1.5+2.477456318181818=20:42:49.58925351818181 v.s. expected 20:42:52
+```
+
+<img src="2026-06-23-201729_2704x1050_scrot.png">
+
+<img src="b210_XY_2500long.png">
+
 ## MAX2771 acquisition on the Raspberry Pi:
 ```
 $ sudo rm /tmp/*bin* && time sudo ./ISL/PocketSDR_RPi4/app/pocket_dump/pocket_dump -t 60 -r /tmp/12.bin
@@ -101,9 +110,4 @@ kpos(3000)/22e6
 ans = 2.477456318181818
 ```
 
-Calculation of the position of the satellite starting at time
-```
-20:42:41.611797200+4+1.5+2.477456318181818=20:42:49.58925351818181 v.s. expected 20:42:52
-```
-
-<img src="2026-06-23-201729_2704x1050_scrot.png">
+<img src="max2771_XY.png">
