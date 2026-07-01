@@ -1,8 +1,10 @@
 # Simultaneous B210 and MAX2771 acquisition
 
+<img src="2026-06-30-215204_2704x1050_scrot.png">
+
 ## Experimental setup
 
-<img src="2026-06-30-215204_2704x1050_scrot.png">
+<img src="IMG_20260630_205234_904small.jpg">
 
 ## B210 on PC recording through USB3 bus:
 
@@ -85,7 +87,7 @@ Resulting analysis using ``b210process.m``
 
 Top surveillance, bottom reference channels (cross correlation magnitude maximum)
 
-<img src=b210_3all.png">
+<img src="b210_3all.png">
 
 Cutting the relevant part of the dataset to save space:
 ```
