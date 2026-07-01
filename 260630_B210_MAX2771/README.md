@@ -8,6 +8,7 @@
 
 ## B210 on PC recording through USB3 bus:
 
+Started around 20:50:48 (+1.5 second delay before file creation in the acquisition program)
 ```
 $ sudo nice -n -20 ../b210_to_file/rx_multi_NISAR 
 
@@ -102,6 +103,8 @@ $ head -c 1320000000 /tmp/2.bin  | tail -c 704000000 > b210_2ref.bin
 
 ## MAX2771 recording from the Raspberry Pi
 
+Started around 20:50:40
+
 <img src="max2771_1all.png">
 
 Cutting the relevant part of the dataset to save space:
@@ -114,3 +117,5 @@ ans = 384000000
 
 $ head -c 720000000 12.bin  | tail -c 384000000 > max2771_12.bin
 ```
+
+<img src="max2771_XY.png">
