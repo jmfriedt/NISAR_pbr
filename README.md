@@ -252,10 +252,16 @@ The following is a passive bistatic analysis of the signals recorded using a M2S
 the roof of ENSMM university in Besancon, France (47N, 6E) with a threshold set to -25 dB
 and a color range from -30 to 0 dB.
 
-<img src="260319_ENSMM_M2SDR/260317_XY_m30dB_51deg_transp_map_dem_wide_small.png">
+<img src="260319_ENSMM_M2SDR/260317_XY_m30dB_51deg_transp_map_dem_wide_small_ann.png">
 
 Update April 2026: <a href="https://search.asf.alaska.edu/#/?dataset=NISAR&prodConfig=PR&zoom=6.780&center=5.905,45.110&polygon=POLYGON((5.9408%2047.1541,6.1897%2047.1541,6.1897%2047.3181,5.9408%2047.3181,5.9408%2047.1541))&resultsLoaded=true&granule=NISAR_L1_PR_RSLC_005_066_D_064_2005_DHDH_A_20251114T185029_20251114T185104_X05009_N_F_J_001">ASF</a> is now publishing NISAR data and only identifies
 one illumination condition of the Besancon area (France) at 18:51 UTC (descending) at days
 multiple of 12 days following Jan. 1st. We have succeeded in receiving signals during the descending
 passes at 18:43 UTC during days multiple of 12 days after Jan. 6 but have failed during the
 ascending pass of 04:19 UTC at days multiple of 12 days after Jan 07.
+
+## Data availability
+
+Datasets are too large to be stored on github, but are available on request. At the time
+of writing, over 40 GB worth of records are stored, split to only keep the useful part of
+each pass.
