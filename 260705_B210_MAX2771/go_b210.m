@@ -60,5 +60,5 @@ do
   until (p>length(refx)-Nmax)
   d=fread(f1,N*2,'int16');ref=d(1:2:end)+j*d(2:2:end);
   q=q+p-1;
-until ((length(d)<N*2)|(m>4000));
+until ((length(d)<N*2)); % |(m>4000));
 save -mat b210_kpos.mat kpos
