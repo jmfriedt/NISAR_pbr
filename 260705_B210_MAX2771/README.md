@@ -108,3 +108,5 @@ $ cat 12.bin | head -c 408000000 | tail -c 168000000 > max2771_12.bin
 <img src="max2771_all.png">
 
 <img src="max2771_XY.png">
+
+<img src="Layout.png">
