@@ -105,13 +105,13 @@ F2 = exp(-1j*2*pi*al_sat*al_I/lembda)/sqrt(P);
 Image_I = F1'*S*conj(F2);
 Image_I_db = 10*log10(abs(Image_I)/max(abs(Image_I(:))));
 figure;imagesc(al_I,beta_I,Image_I_db);axis xy;
-colormap(jet);colorbar;clim([-25,0]);
+colormap(jet);colorbar;clim([-27,0]);
 xlabel('\alpha_{\itI}');ylabel('\beta_{\itI} (m)');
 ylabel(colorbar,'Normalized amplitude (dB)');
 set(gca,'FontName','Times New Roman','FontSize',14);
 
 %% Image on x-o-y plane
-xm = linspace(0,7.5e3,3801);nxm = length(xm);
+xm = linspace(0,8e3,3801);nxm = length(xm);
 ym = linspace(-5700,6700,3801);nym = length(ym);
 
 [X,Y] = meshgrid(xm,ym.');A = Y;
@@ -130,7 +130,7 @@ beta_grid = sqrt(A.^2+B.^2)+B-A.^2./(beta_sat-B)/2;
 Image_xy = interp2(al_I_grid,beta_I_grid,Image_I,al_grid,beta_grid,'linear',0);
 Image_xy_db = 10*log10(abs(Image_xy)/max(abs(Image_xy(:))));
 figure;imagesc(ym,xm,Image_xy_db.');axis xy;
-clim([-25,0]);colormap(jet);colorbar;
-xlabel('y (m)');ylabel('x (m)');
+clim([-27,0]);colormap(jet);colorbar;
+xlabel('x (m)');ylabel('y (m)');
 ylabel(colorbar,'Normalized amplitude (dB)');
 %set(gca,'FontName','Times New Roman','FontSize',14);
