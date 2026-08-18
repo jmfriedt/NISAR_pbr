@@ -4,6 +4,12 @@ Flight at 44 deg. elevation at 18:51 UTC
 
 <img src="heavensabove.png">
 
+<img src="IMG_20260817_203924_027small.jpg">
+<img src="IMG_20260817_204017_619small.jpg">
+
+<img src="IMG_20260817_204839_518small.jpg">
+<img src="IMG_20260817_204850_767small.jpg">
+
 ## MAX2771 / Raspberry Pi 5
 
 Start at 20:50:30
