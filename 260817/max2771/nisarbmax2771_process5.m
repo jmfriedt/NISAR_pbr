@@ -10,7 +10,7 @@ fc = 1229e6; % c/lembda;
 lembda = c/fc; % 24e-2;
 
 H = 750.2e3;       % TLE Celestrak (semi-major axis)
-theta0 = 51*pi/180;
+theta0 = 44*pi/180;
 beta_sat = -H/sin(theta0);
 
 fs = 24e6;
@@ -74,14 +74,14 @@ clear x
  for p = 1:P
      disp(p);
      Sref(:,p) = ref1(pindx(p)-AS:pindx(p)-AS+Nr-1);
-Sref(:,p)=Sref(:,p)-mean(Sref(:,p));
+% Sref(:,p)=Sref(:,p)-mean(Sref(:,p));
      Sls = zeros(Nr,L);
      for l = -(L-1)/2:(L-1)/2
          Sls(:,l+(L-1)/2+1) = ref1(pindx(p)-AS+l:pindx(p)-AS+Nr-1+l);
      end
      temp = sur1(pindx(p)-AS:pindx(p)-AS+Nr-1);
      Ssur(:,p) = temp-Sls*pinv(Sls)*temp;
-Ssur(:,p)=Ssur(:,p)-mean(Ssur(:,p));
+% Ssur(:,p)=Ssur(:,p)-mean(Ssur(:,p));
  end
  N = length(ref1);
  t = (0:N-1)/fs;
@@ -120,8 +120,8 @@ ylabel(colorbar,'Normalized amplitude (dB)');
 %set(gca,'FontName','Times New Roman','FontSize',14);
 
 %% Image on x-o-y plane
-xm = linspace(0,8e3,2001);nxm = length(xm);
-ym = linspace(-4000,6500,3001);nym = length(ym);
+xm = linspace(0,8e3,3801);nxm = length(xm);
+ym = linspace(-5700,6700,3801);nym = length(ym);
 
 [X,Y] = meshgrid(xm,ym.');A = Y;
 
