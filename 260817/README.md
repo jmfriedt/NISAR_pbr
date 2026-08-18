@@ -142,3 +142,7 @@ Range-azimuth compression results:
 
 <img src="b210/B210_XY_2301.png">
 <img src="max2771//MAX2771_XY_2301.png">
+
+2-bit MAX2771 after DC removal and windowing before azimuth compression and reducing ``Nr`` from 1801 to 1501:
+
+<img src="max2771/MAX2771_XY_meanremoval_windowing_2301">
