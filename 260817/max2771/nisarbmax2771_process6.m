@@ -15,7 +15,7 @@ beta_sat = -H/sin(theta0);
 
 fs = 24e6;
 
-Nr = 1501;
+Nr = 1801;
 freq = (-(Nr-1)/2:(Nr-1)/2).'/Nr*fs;
 
 orbits_per_day=14.42502395
@@ -52,51 +52,52 @@ clear x
 %pindx=kpos(1000:end-1000);
 
 %% Raw data
- Sref = zeros(Nr,P);
- Ssur = zeros(Nr,P);
- L = 5;
- AS = 50;
+Sref = zeros(Nr,P);
+Ssur = zeros(Nr,P);
+L = 5;
+AS = 50;
 
- pindx=kpos(8001:8001+P+L);
+pindx=kpos(8001:8001+P+L);
 
- fseek(f12,pindx(1)-AS-1-L, SEEK_CUR);  % packed char = 1x
- x=fread(f12,(pindx(end)-pindx(1)+Nr+L),'uint8');
- i0=bit2val(bitand(x,3)+1);
- q0=bit2val(bitand(bitshift(x,-2),3)+1);
- i1=bit2val(bitand(bitshift(x,-4),3)+1);
- q1=bit2val(bitand(bitshift(x,-6),3)+1);
- ref1=i1-j*q1;ref1=ref1.';
- sur1=i0-j*q0;sur1=sur1.';
+fseek(f12,pindx(1)-AS-1-L, SEEK_CUR);  % packed char = 1x
+x=fread(f12,(pindx(end)-pindx(1)+Nr+L),'uint8');
+i0=bit2val(bitand(x,3)+1);
+q0=bit2val(bitand(bitshift(x,-2),3)+1);
+i1=bit2val(bitand(bitshift(x,-4),3)+1);
+q1=bit2val(bitand(bitshift(x,-6),3)+1);
+ref1=i1-j*q1;ref1=ref1.';
+sur1=i0-j*q0;sur1=sur1.';
 
- pindx=pindx-(pindx(1)-AS)+1+L;
- clear x
+pindx=pindx-(pindx(1)-AS)+1+L;
+clear x
 
- for p = 1:P
-     disp(p);
-     Sref(:,p) = ref1(pindx(p)-AS:pindx(p)-AS+Nr-1);
-     Sls = zeros(Nr,L);
-     for l = -(L-1)/2:(L-1)/2
-         Sls(:,l+(L-1)/2+1) = ref1(pindx(p)-AS+l:pindx(p)-AS+Nr-1+l);
-     end
-     temp = sur1(pindx(p)-AS:pindx(p)-AS+Nr-1);
-     Ssur(:,p) = temp-Sls*pinv(Sls)*temp;
+for p = 1:P
+    disp(p);
+    Sref(:,p) = ref1(pindx(p)-AS:pindx(p)-AS+Nr-1);
+%     Sls = zeros(Nr,L);
+%     for l = -(L-1)/2:(L-1)/2
+%         Sls(:,l+(L-1)/2+1) = ref1(pindx(p)-AS+l:pindx(p)-AS+Nr-1+l);
+%     end
+%     temp = sur1(pindx(p)-AS:pindx(p)-AS+Nr-1);
+%     Ssur(:,p) = temp-Sls*pinv(Sls)*temp;
+    Ssur(:,p) = sur1(pindx(p)-AS:pindx(p)-AS+Nr-1);
  end
- N = length(ref1);
- t = (0:N-1)/fs;
- t1 = t(1:end);
+N = length(ref1);
+t = (0:N-1)/fs;
+t1 = t(1:end);
 
- t0 = t1(round(pindx(1:end-3))-round(AS)).';t0 = t0(1:P);
- t0 = t0-(t0(1)+t0(end))/2;
+t0 = t1(round(pindx(1:end-3))-round(AS)).';t0 = t0(1:P);
+t0 = t0-(t0(1)+t0(end))/2;
 % load t0.mat t0;
 
- Sref_fft = zeros(Nr,P);
- Ssur_fft = zeros(Nr,P);
- S = zeros(Nr,P);
- for p = 1:P
-     Sref_fft(:,p) = fftshift(fft(Sref(:,p)));
-     Ssur_fft(:,p) = fftshift(fft(Ssur(:,p)));
-     S(:,p) = Ssur_fft(:,p).*conj(Sref_fft(:,p));
- end
+Sref_fft = zeros(Nr,P);
+Ssur_fft = zeros(Nr,P);
+S = zeros(Nr,P);
+for p = 1:P
+    Sref_fft(:,p) = fftshift(fft(Sref(:,p)));
+    Ssur_fft(:,p) = fftshift(fft(Ssur(:,p)));
+    S(:,p) = Ssur_fft(:,p).*conj(Sref_fft(:,p));
+end
 
 %load S.mat S;
 
@@ -111,10 +112,10 @@ F2 = exp(-1j*2*pi*al_sat*al_I/lembda)/sqrt(P);
 % Filter DC and windowing before azimuth compression
 hlen=100;
 tmp=F1'*S;
-tmp=tmp.';
-tmp=tmp-mean(tmp);  % mean(tmp) is 2501 along range
-tmp=tmp.*([hamming(hlen)(1:hlen/2) ; ones(P-hlen,1) ; hamming(hlen)(hlen/2+1:end)]*ones(1,length(beta_I)));
-tmp=tmp.';
+%tmp=tmp.';
+tmp=tmp-mean(tmp,2);  % mean(tmp) is 2501 along range
+%tmp=tmp.*([hamming(hlen)(1:hlen/2) ; ones(P-hlen,1) ; hamming(hlen)(hlen/2+1:end)]*ones(1,length(beta_I)));
+%tmp=tmp.';
 Image_I=tmp*conj(F2);
 
 % Image_I = F1'*S*conj(F2);

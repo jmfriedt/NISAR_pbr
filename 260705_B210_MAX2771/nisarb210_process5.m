@@ -55,7 +55,7 @@ clear d
  L = 5;
  AS = 50;
 
-pindx=kpos(1005:1005+P+L);
+pindx=kpos(3505:3505+P+L);
 
  fseek(f1,2*2*pindx(1)-AS-1-L,SEEK_CUR);  % complex short = 2x2
  fseek(f2,2*2*pindx(1)-AS-1-L,SEEK_CUR);  % complex short = 2x2
