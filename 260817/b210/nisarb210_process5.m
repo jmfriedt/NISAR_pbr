@@ -15,7 +15,7 @@ beta_sat = -H/sin(theta0);
 
 fs = 22e6;
 
-Nr = 1801;
+Nr = 2501;
 freq = (-(Nr-1)/2:(Nr-1)/2).'/Nr*fs;
 
 orbits_per_day=14.42502395
@@ -91,6 +91,7 @@ pindx=kpos(7005:7005+P+L);
      S(:,p) = Ssur_fft(:,p).*conj(Sref_fft(:,p));
  end
 
+save -mat S.mat S
 %load S.mat S;
 
 %% SAR imaging
