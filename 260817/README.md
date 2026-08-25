@@ -146,3 +146,10 @@ Range-azimuth compression results:
 2-bit MAX2771 after DC removal and windowing before azimuth compression and reducing ``Nr`` from 1801 to 1501:
 
 <img src="max2771/MAX2771_XY_meanremoval_noDPI_2301.png">
+
+## Time Domain Back Projection on B210 and MAX2771 measurements
+
+<img src="b210/b210_Layout-2deg_small.png">
+
+<img src="max2771/max2771_Layout-2deg_small.png">
+
