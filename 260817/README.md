@@ -155,4 +155,4 @@ Range-azimuth compression results:
 
 and after removing the mean value of each range compressed line prior to azimuth compression:
 
-<img src="max2771_Layout-2deg_nomean_small.png">
+<img src="max2771/max2771_Layout-2deg_nomean_small.png">
