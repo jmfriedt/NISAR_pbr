@@ -2,29 +2,43 @@ clc;
 clear;
 close all;
 
-load kpos
-
 %% Parameters
 c = 3e8;
 lembda = 24e-2;
 fc = c/lembda;
 
 H = 747e3;
-theta0 = 51*pi/180;  % JMF 51, NOT 39
+theta0 = 46*pi/180;
 beta_sat = -H/sin(theta0);
 
-fs = 22e6;
+fs = 6e6;
 
 Nr = 2501;
 freq = (-(Nr-1)/2:(Nr-1)/2).'/Nr*fs;
 
 linspeed = sqrt(5.972e24*6.67430e-11/(6371e3+H));
-P = 4001;
+P = 2001;
 
 %% Load data
-f1=fopen('sur.bin');  % ref
-f2=fopen('sur.bin');  % sur
-clear d
+d0 = fopen('../1short');
+da = fread(d0,inf,'int8');
+sur = da(1:2:end)+1j*da(2:2:end);
+d1 = fopen('../2short');
+da = fread(d1,inf,'int8');
+ref = da(1:2:end)+1j*da(2:2:end);
+clear da;
+
+N = length(ref);
+t = (0:N-1)/fs;
+
+ts = 5.4;te = 6.6;
+n1 = find(abs(t-ts) == min(abs(t-ts)));
+n2 = find(abs(t-te) == min(abs(t-te)));
+
+t1 = t(n1:n2);
+ref1 = ref(n1:n2);
+sur1 = sur(n1:n2);
+clear t ref sur;
 
 %% Find pulses
 % p1 = find(abs(ref1)>70);
@@ -41,51 +55,38 @@ clear d
 %         do_search = 0;
 %     end
 % end
-%pindx=kpos(1000:end-1000);
+load pindx.mat pindx;
 
 %% Raw data
- Sref = zeros(Nr,P);
- Ssur = zeros(Nr,P);
- L = 5;
- AS = 50;
-
-pindx=kpos(900:900+P+L);
-
- fseek(f1,2*2*pindx(1)-AS-1-L);  % complex short = 2x2
- fseek(f2,2*2*pindx(1)-AS-1-L);  % complex short = 2x2
- d=fread(f1,(pindx(end)-pindx(1)+Nr+L)*2,'int16');ref1=d(1:2:end)+j*d(2:2:end);
- d=fread(f2,(pindx(end)-pindx(1)+Nr+L)*2,'int16');sur1=d(1:2:end)+j*d(2:2:end);
- pindx=pindx-(pindx(1)-AS)+1+L;
- clear d
-
- for p = 1:P
-     disp(p);
-     Sref(:,p) = ref1(pindx(p)-AS:pindx(p)-AS+Nr-1);
+% Sref = zeros(Nr,P);
+% Ssur = zeros(Nr,P);
+% L = 5;
+% AS = 50;
+% for p = 1:P
+%     disp(p);
+%     Sref(:,p) = ref1(pindx(p)-AS:pindx(p)-AS+Nr-1);
 %     Sls = zeros(Nr,L);
 %     for l = -(L-1)/2:(L-1)/2
 %         Sls(:,l+(L-1)/2+1) = ref1(pindx(p)-AS+l:pindx(p)-AS+Nr-1+l);
 %     end
-     temp = sur1(pindx(p)-AS:pindx(p)-AS+Nr-1);
-     Ssur(:,p) = temp; % -Sls*pinv(Sls)*temp;  % JMF: remove DSI removal
- end
- N = length(ref1);
- t = (0:N-1)/fs;
- t1 = t(1:end);
+%     temp = sur1(pindx(p)-AS:pindx(p)-AS+Nr-1);
+%     Ssur(:,p) = temp-Sls*pinv(Sls)*temp;
+% end
+% 
+% t0 = t1(pindx-AS).';t0 = t0(1:P);
+% t0 = t0-(t0(1)+t0(end))/2;
+load t0.mat t0;
 
- t0 = t1(round(pindx(1:end-3))-round(AS)).';t0 = t0(1:P);
- t0 = t0-(t0(1)+t0(end))/2;
-% load t0.mat t0;
+% Sref_fft = zeros(Nr,P);
+% Ssur_fft = zeros(Nr,P);
+% S = zeros(Nr,P);
+% for p = 1:P
+%     Sref_fft(:,p) = fftshift(fft(Sref(:,p)));
+%     Ssur_fft(:,p) = fftshift(fft(Ssur(:,p)));
+%     S(:,p) = Ssur_fft(:,p).*conj(Sref_fft(:,p));
+% end
 
- Sref_fft = zeros(Nr,P);
- Ssur_fft = zeros(Nr,P);
- S = zeros(Nr,P);
- for p = 1:P
-     Sref_fft(:,p) = fftshift(fft(Sref(:,p)));
-     Ssur_fft(:,p) = fftshift(fft(Ssur(:,p)));
-     S(:,p) = Ssur_fft(:,p).*conj(Sref_fft(:,p));
- end
-
-%load S.mat S;
+load S.mat S;
 
 %% SAR imaging
 al_sat = linspeed*t0;

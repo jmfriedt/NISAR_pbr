@@ -2,7 +2,7 @@ clc;
 clear;
 close all;
 
-load kpos.mat
+load kpos.mat.gz
 
 %% Parameters
 c = 3e8;
@@ -10,7 +10,7 @@ fc = 1229e6; % c/lembda;
 lembda = c/fc; % 24e-2;
 
 H = 750.2e3;       % TLE Celestrak (semi-major axis)
-theta0 = 50*pi/180;
+theta0 = 51*pi/180;
 beta_sat = -H/sin(theta0);
 
 fs = 24e6;
@@ -28,8 +28,7 @@ linspeed=orbit_length/orbit_duration
 P = 1501;
 
 %% Load data
-f12=fopen('max2771_12.bin');  % ref
-fseek(f12,fs*27);
+f12=fopen('12cut.bin');  % ref
 
 bit2val=[1,3,-1,-3];
 clear x
@@ -54,10 +53,10 @@ clear x
 %% Raw data
  Sref = zeros(Nr,P);
  Ssur = zeros(Nr,P);
- L = 5;
+ L = 7;
  AS = 50;
 
- pindx=kpos(1:1+P+L);
+ pindx=kpos(2301:2301+P+L);
 
  fseek(f12,pindx(1)-AS-1-L, SEEK_CUR);  % packed char = 1x
  x=fread(f12,(pindx(end)-pindx(1)+Nr+L),'uint8');
@@ -74,14 +73,15 @@ clear x
  for p = 1:P
      disp(p);
      Sref(:,p) = ref1(pindx(p)-AS:pindx(p)-AS+Nr-1);
-Sref(:,p)=Sref(:,p)-mean(Sref(:,p));
+% Sref(:,p)=Sref(:,p)-mean(Sref(:,p));
      Sls = zeros(Nr,L);
      for l = -(L-1)/2:(L-1)/2
          Sls(:,l+(L-1)/2+1) = ref1(pindx(p)-AS+l:pindx(p)-AS+Nr-1+l);
      end
      temp = sur1(pindx(p)-AS:pindx(p)-AS+Nr-1);
      Ssur(:,p) = temp-Sls*pinv(Sls)*temp;
-Ssur(:,p)=Ssur(:,p)-mean(Ssur(:,p));
+%     Ssur(:,p) = sur1(pindx(p)-AS:pindx(p)-AS+Nr-1);
+% Ssur(:,p)=Ssur(:,p)-mean(Ssur(:,p));
  end
  N = length(ref1);
  t = (0:N-1)/fs;
@@ -98,6 +98,7 @@ Ssur(:,p)=Ssur(:,p)-mean(Ssur(:,p));
      Sref_fft(:,p) = fftshift(fft(Sref(:,p)));
      Ssur_fft(:,p) = fftshift(fft(Ssur(:,p)));
      S(:,p) = Ssur_fft(:,p).*conj(Sref_fft(:,p));
+% S(:,p)=S(:,p)-mean(S(:,p));
  end
 
 %load S.mat S;

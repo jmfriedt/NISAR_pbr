@@ -15,7 +15,7 @@ beta_sat = -H/sin(theta0);
 
 fs = 22e6;
 
-Nr = 1501;
+Nr = 2501;
 freq = (-(Nr-1)/2:(Nr-1)/2).'/Nr*fs;
 
 orbits_per_day=14.42502395
@@ -91,6 +91,7 @@ pindx=kpos(3000:3000+P+L);
      S(:,p) = Ssur_fft(:,p).*conj(Sref_fft(:,p));
  end
 
+save -mat S.mat S
 %load S.mat S;
 
 %% SAR imaging
@@ -103,9 +104,9 @@ al_I = linspace(-7e-3,7e-3,3501);nal = length(al_I);
 F2 = exp(-1j*2*pi*al_sat*al_I/lembda)/sqrt(P);
 
 Image_I = F1'*S*conj(F2);
-Image_I_db = 10*log10(abs(Image_I)/max(abs(Image_I(:))));
+Image_I_db = 20*log10(abs(Image_I)/max(abs(Image_I(:))));
 figure;imagesc(al_I,beta_I,Image_I_db);axis xy;
-colormap(jet);colorbar;clim([-24,0]);
+colormap(jet);colorbar;clim([-48,0]);
 xlabel('\alpha_{\itI}');ylabel('\beta_{\itI} (m)');
 ylabel(colorbar,'Normalized amplitude (dB)');
 set(gca,'FontName','Times New Roman','FontSize',14);
@@ -128,9 +129,9 @@ al_grid = A./(beta_sat-B);
 beta_grid = sqrt(A.^2+B.^2)+B-A.^2./(beta_sat-B)/2;
 
 Image_xy = interp2(al_I_grid,beta_I_grid,Image_I,al_grid,beta_grid,'linear',0);
-Image_xy_db = 10*log10(abs(Image_xy)/max(abs(Image_xy(:))));
+Image_xy_db = 20*log10(abs(Image_xy)/max(abs(Image_xy(:))));
 figure;imagesc(ym,xm,Image_xy_db.');axis xy;
-clim([-24,0]);colormap(jet);colorbar;
+clim([-48,0]);colormap(jet);colorbar;
 xlabel('x (m)');ylabel('y (m)');
 ylabel(colorbar,'Normalized amplitude (dB)');
 %set(gca,'FontName','Times New Roman','FontSize',14);

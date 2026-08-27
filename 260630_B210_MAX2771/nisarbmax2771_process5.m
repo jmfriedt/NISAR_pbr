@@ -2,7 +2,7 @@ clc;
 clear;
 close all;
 
-load kpos.mat
+load max2771_kpos.mat
 
 %% Parameters
 c = 3e8;
@@ -10,7 +10,7 @@ fc = 1229e6; % c/lembda;
 lembda = c/fc; % 24e-2;
 
 H = 750.2e3;       % TLE Celestrak (semi-major axis)
-theta0 = 50*pi/180;
+theta0 = 44*pi/180;
 beta_sat = -H/sin(theta0);
 
 fs = 24e6;
@@ -29,7 +29,6 @@ P = 1501;
 
 %% Load data
 f12=fopen('max2771_12.bin');  % ref
-fseek(f12,fs*27);
 
 bit2val=[1,3,-1,-3];
 clear x
@@ -57,7 +56,7 @@ clear x
  L = 5;
  AS = 50;
 
- pindx=kpos(1:1+P+L);
+ pindx=kpos(10000:10000+P+L);
 
  fseek(f12,pindx(1)-AS-1-L, SEEK_CUR);  % packed char = 1x
  x=fread(f12,(pindx(end)-pindx(1)+Nr+L),'uint8');
@@ -114,7 +113,7 @@ F2 = exp(-1j*2*pi*al_sat*al_I/lembda)/sqrt(P);
 Image_I = F1'*S*conj(F2);
 Image_I_db = 20*log10(abs(Image_I)/max(abs(Image_I(:))));
 figure;imagesc(al_I,beta_I,Image_I_db);axis xy;
-colormap(jet);colorbar;clim([-54,0]);
+colormap(jet);colorbar;clim([-40,0]);
 xlabel('\alpha_{\itI}');ylabel('\beta_{\itI} (m)');
 ylabel(colorbar,'Normalized amplitude (dB)');
 %set(gca,'FontName','Times New Roman','FontSize',14);
@@ -139,7 +138,7 @@ beta_grid = sqrt(A.^2+B.^2)+B-A.^2./(beta_sat-B)/2;
 Image_xy = interp2(al_I_grid,beta_I_grid,Image_I,al_grid,beta_grid,'linear',0);
 Image_xy_db = 20*log10(abs(Image_xy)/max(abs(Image_xy(:))));
 figure;imagesc(ym,xm,Image_xy_db.');axis xy;
-clim([-54,0]);colormap(jet);colorbar;
+clim([-40,0]);colormap(jet);colorbar;
 xlabel('x (m)');ylabel('y (m)');
 ylabel(colorbar,'Normalized amplitude (dB)');
 %set(gca,'FontName','Times New Roman','FontSize',14);

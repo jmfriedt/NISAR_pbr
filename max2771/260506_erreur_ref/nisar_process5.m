@@ -2,7 +2,7 @@ clc;
 clear;
 close all;
 
-load kpos.mat
+load kpos
 
 %% Parameters
 c = 3e8;
@@ -10,12 +10,12 @@ fc = 1229e6; % c/lembda;
 lembda = c/fc; % 24e-2;
 
 H = 750.2e3;       % TLE Celestrak (semi-major axis)
-theta0 = 50*pi/180;
+theta0 = 51*pi/180;
 beta_sat = -H/sin(theta0);
 
 fs = 24e6;
 
-Nr = 1801;
+Nr = 2501;
 freq = (-(Nr-1)/2:(Nr-1)/2).'/Nr*fs;
 
 orbits_per_day=14.42502395
@@ -28,11 +28,9 @@ linspeed=orbit_length/orbit_duration
 P = 1501;
 
 %% Load data
-f12=fopen('max2771_12.bin');  % ref
-fseek(f12,fs*27);
-
-bit2val=[1,3,-1,-3];
-clear x
+f1=fopen('/tmp/2.bin');  % ref
+%f2=fopen('1.bin');  % sur
+clear d
 
 %% Find pulses
 % p1 = find(abs(ref1)>70);
@@ -57,31 +55,24 @@ clear x
  L = 5;
  AS = 50;
 
- pindx=kpos(1:1+P+L);
+ pindx=kpos(3500:3500+P+L);
 
- fseek(f12,pindx(1)-AS-1-L, SEEK_CUR);  % packed char = 1x
- x=fread(f12,(pindx(end)-pindx(1)+Nr+L),'uint8');
- i0=bit2val(bitand(x,3)+1);
- q0=bit2val(bitand(bitshift(x,-2),3)+1);
- i1=bit2val(bitand(bitshift(x,-4),3)+1);
- q1=bit2val(bitand(bitshift(x,-6),3)+1);
- ref1=i1-j*q1;ref1=ref1.';
- sur1=i0-j*q0;sur1=sur1.';
-
+ fseek(f1,2*pindx(1)-AS-1-L);  % complex char = 2x
+% fseek(f2,2*pindx(1)-AS-1-L);  % complex char = 2x
+ d=fread(f1,(pindx(end)-pindx(1)+Nr+L)*2,'int8');ref1=d(1:2:end)-j*d(2:2:end);
+% d=fread(f2,(pindx(end)-pindx(1)+Nr+L)*2,'int8');sur1=d(1:2:end)-j*d(2:2:end);
  pindx=pindx-(pindx(1)-AS)+1+L;
- clear x
+ clear d
 
  for p = 1:P
      disp(p);
      Sref(:,p) = ref1(pindx(p)-AS:pindx(p)-AS+Nr-1);
-Sref(:,p)=Sref(:,p)-mean(Sref(:,p));
-     Sls = zeros(Nr,L);
-     for l = -(L-1)/2:(L-1)/2
-         Sls(:,l+(L-1)/2+1) = ref1(pindx(p)-AS+l:pindx(p)-AS+Nr-1+l);
-     end
-     temp = sur1(pindx(p)-AS:pindx(p)-AS+Nr-1);
-     Ssur(:,p) = temp-Sls*pinv(Sls)*temp;
-Ssur(:,p)=Ssur(:,p)-mean(Ssur(:,p));
+%     Sls = zeros(Nr,L);
+%     for l = -(L-1)/2:(L-1)/2
+%         Sls(:,l+(L-1)/2+1) = ref1(pindx(p)-AS+l:pindx(p)-AS+Nr-1+l);
+%     end
+     temp = ref1(pindx(p)-AS:pindx(p)-AS+Nr-1);
+     Ssur(:,p) = temp; % -Sls*pinv(Sls)*temp;
  end
  N = length(ref1);
  t = (0:N-1)/fs;
@@ -105,23 +96,23 @@ Ssur(:,p)=Ssur(:,p)-mean(Ssur(:,p));
 %% SAR imaging
 al_sat = linspeed*t0;
 
-beta_I = linspace(0,15000,2501);nbe = length(beta_I);
+beta_I = linspace(0,25000,2501);nbe = length(beta_I);
 F1 = exp(-1j*2*pi*freq*beta_I/c)/sqrt(Nr);
 
-al_I = linspace(-7e-3,7e-3,3501);nal = length(al_I);
+al_I = linspace(-5e-3,5e-3,2001);nal = length(al_I);
 F2 = exp(-1j*2*pi*al_sat*al_I/lembda)/sqrt(P);
 
 Image_I = F1'*S*conj(F2);
 Image_I_db = 20*log10(abs(Image_I)/max(abs(Image_I(:))));
 figure;imagesc(al_I,beta_I,Image_I_db);axis xy;
-colormap(jet);colorbar;clim([-54,0]);
+colormap(jet);colorbar;clim([-60,0]);
 xlabel('\alpha_{\itI}');ylabel('\beta_{\itI} (m)');
 ylabel(colorbar,'Normalized amplitude (dB)');
 %set(gca,'FontName','Times New Roman','FontSize',14);
 
 %% Image on x-o-y plane
-xm = linspace(0,8e3,2001);nxm = length(xm);
-ym = linspace(-4000,6500,3001);nym = length(ym);
+xm = linspace(0,10e3,2001);nxm = length(xm);
+ym = linspace(-4000,4000,2001);nym = length(ym);
 
 [X,Y] = meshgrid(xm,ym.');A = Y;
 
@@ -139,7 +130,7 @@ beta_grid = sqrt(A.^2+B.^2)+B-A.^2./(beta_sat-B)/2;
 Image_xy = interp2(al_I_grid,beta_I_grid,Image_I,al_grid,beta_grid,'linear',0);
 Image_xy_db = 20*log10(abs(Image_xy)/max(abs(Image_xy(:))));
 figure;imagesc(ym,xm,Image_xy_db.');axis xy;
-clim([-54,0]);colormap(jet);colorbar;
+clim([-60,0]);colormap(jet);colorbar;
 xlabel('x (m)');ylabel('y (m)');
 ylabel(colorbar,'Normalized amplitude (dB)');
 %set(gca,'FontName','Times New Roman','FontSize',14);

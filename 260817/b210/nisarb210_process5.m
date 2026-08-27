@@ -103,13 +103,22 @@ F1 = exp(-1j*2*pi*freq*beta_I/c)/sqrt(Nr);
 al_I = linspace(-7e-3,7e-3,3501);nal = length(al_I);
 F2 = exp(-1j*2*pi*al_sat*al_I/lembda)/sqrt(P);
 
-Image_I = F1'*S*conj(F2);
-Image_I_db = 10*log10(abs(Image_I)/max(abs(Image_I(:))));
+% Filter DC and windowing before azimuth compression
+hlen=100;
+tmp=F1'*S;
+%tmp=tmp.';
+tmp=tmp-mean(tmp,2);  % mean(tmp) is 2501 along range
+%tmp=tmp.*([hamming(hlen)(1:hlen/2) ; ones(P-hlen,1) ; hamming(hlen)(hlen/2+1:end)]*ones(1,length(beta_I)));
+%tmp=tmp.';
+Image_I=tmp*conj(F2);
+
+% Image_I = F1'*S*conj(F2);
+Image_I_db = 20*log10(abs(Image_I)/max(abs(Image_I(:))));
 figure;imagesc(al_I,beta_I,Image_I_db);axis xy;
-colormap(jet);colorbar;clim([-27,0]);
+colormap(jet);colorbar;clim([-54,0]);
 xlabel('\alpha_{\itI}');ylabel('\beta_{\itI} (m)');
 ylabel(colorbar,'Normalized amplitude (dB)');
-set(gca,'FontName','Times New Roman','FontSize',14);
+%set(gca,'FontName','Times New Roman','FontSize',14);
 
 %% Image on x-o-y plane
 xm = linspace(0,8e3,3801);nxm = length(xm);
@@ -129,9 +138,11 @@ al_grid = A./(beta_sat-B);
 beta_grid = sqrt(A.^2+B.^2)+B-A.^2./(beta_sat-B)/2;
 
 Image_xy = interp2(al_I_grid,beta_I_grid,Image_I,al_grid,beta_grid,'linear',0);
-Image_xy_db = 10*log10(abs(Image_xy)/max(abs(Image_xy(:))));
+Image_xy_db = 20*log10(abs(Image_xy)/max(abs(Image_xy(:))));
 figure;imagesc(ym,xm,Image_xy_db.');axis xy;
-clim([-27,0]);colormap(jet);colorbar;
+clim([-54,0]);colormap(jet);colorbar;
 xlabel('x (m)');ylabel('y (m)');
 ylabel(colorbar,'Normalized amplitude (dB)');
 %set(gca,'FontName','Times New Roman','FontSize',14);
+
+save -mat nisar.mat Image_xy

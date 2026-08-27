@@ -1,8 +1,13 @@
+%octave:2> k=find(kpos>2.5*24e6);k(1)
+%ans = 4774
+%octave:3> k=find(kpos>3.5*24e6);k(1)
+%ans = 6684
+
 clc;
 clear;
 close all;
 
-load kpos.mat
+load max2771_kpos.mat
 
 %% Parameters
 c = 3e8;
@@ -10,7 +15,7 @@ fc = 1229e6; % c/lembda;
 lembda = c/fc; % 24e-2;
 
 H = 750.2e3;       % TLE Celestrak (semi-major axis)
-theta0 = 50*pi/180;
+theta0 = 44*pi/180;
 beta_sat = -H/sin(theta0);
 
 fs = 24e6;
@@ -28,10 +33,9 @@ linspeed=orbit_length/orbit_duration
 P = 1501;
 
 %% Load data
-f12=fopen('max2771_12.bin');  % ref
-fseek(f12,fs*27);
+f1=fopen('1sur.bin');  % ref
+f2=fopen('2ref.bin');  % ref
 
-bit2val=[1,3,-1,-3];
 clear x
 
 %% Find pulses
@@ -57,16 +61,16 @@ clear x
  L = 5;
  AS = 50;
 
- pindx=kpos(1:1+P+L);
+ pindx=kpos(5701:5701+P+L);
 
- fseek(f12,pindx(1)-AS-1-L, SEEK_CUR);  % packed char = 1x
- x=fread(f12,(pindx(end)-pindx(1)+Nr+L),'uint8');
- i0=bit2val(bitand(x,3)+1);
- q0=bit2val(bitand(bitshift(x,-2),3)+1);
- i1=bit2val(bitand(bitshift(x,-4),3)+1);
- q1=bit2val(bitand(bitshift(x,-6),3)+1);
- ref1=i1-j*q1;ref1=ref1.';
- sur1=i0-j*q0;sur1=sur1.';
+ fseek(f1,2*(pindx(1)-AS-1-L), SEEK_CUR);  % packed char = 1x
+ fseek(f2,2*(pindx(1)-AS-1-L), SEEK_CUR);  % packed char = 1x
+ x=fread(f1,2*(pindx(end)-pindx(1)+Nr+L),'int8');
+ ref1=x(1:2:end)-j*x(2:2:end);
+ ref=ref1-mean(ref1);
+ x=fread(f2,2*(pindx(end)-pindx(1)+Nr+L),'int8');
+ sur1=x(1:2:end)-j*x(2:2:end);
+ sur=sur1-mean(sur1);
 
  pindx=pindx-(pindx(1)-AS)+1+L;
  clear x
@@ -99,7 +103,7 @@ Ssur(:,p)=Ssur(:,p)-mean(Ssur(:,p));
      Ssur_fft(:,p) = fftshift(fft(Ssur(:,p)));
      S(:,p) = Ssur_fft(:,p).*conj(Sref_fft(:,p));
  end
-
+S=S-mean(mean(S));
 %load S.mat S;
 
 %% SAR imaging
