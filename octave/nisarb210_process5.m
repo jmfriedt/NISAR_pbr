@@ -4,10 +4,12 @@
 
 load b210_kpos
 
-if (exist('theta0')==0) theta0 = 44*pi/180; end
 if (exist('kposstart')==0) kposstart=7005; end
 if (exist('filename1')==0) filename1='2ref.bin'; end
 if (exist('filename2')==0) filename2='1sur.bin'; end
+if (exist('Nr')==0) Nr = 2501;end
+if (exist('P')==0) P = 2301;end
+if (exist('theta0')==0) theta0 = 44*pi/180; end
 kposstart
 
 %% Parameters
@@ -20,7 +22,6 @@ beta_sat = -H/sin(theta0);
 
 fs = 22e6;
 
-Nr = 2501;
 freq = (-(Nr-1)/2:(Nr-1)/2).'/Nr*fs;
 
 orbits_per_day=14.42502395
@@ -30,7 +31,6 @@ orbit_length=(Rearth+H)*2*pi;
 
 linspeed=orbit_length/orbit_duration
 % linspeed = sqrt(5.972e24*6.67430e-11/(6371e3+H)) % sqrt((G*M)/(R+H)) gravity constant x Earth mass
-P = 2301;
 
 %% Load data
 f1=fopen(filename1);  % 2=ref

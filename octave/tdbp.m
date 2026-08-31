@@ -4,6 +4,8 @@
 %close all;
 format long
 if (exist('b210tdbp')==0) b210tdbp=1;end
+if (exist('Nr')==0) Nr= 2501;end   % from range compression: number of range positions
+if (exist('P')==0) P = 2301;end    % from range compression: number of satellite positions
 
 if (b210tdbp==1)
 % receiver dependent
@@ -23,8 +25,6 @@ end
 
 c = 300;    % light speed m/us
 fc= 1229;   % center freq MHz
-Nr= 2501;   % from range compression: number of range positions
-P = 2301;   % from range compression: number of satellite positions
 
 Y31N=5237467; % ENSMM UTM31N
 X31N=726480;
