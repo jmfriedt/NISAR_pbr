@@ -26,10 +26,10 @@ fields=next(csv.DictReader(f))
 sat = EarthSatellite.from_omm(ts, fields)
 
 print(f"% {sat}")                                   # Confirms TLE was loaded successfully
-ti = ts.utc(2026, 8, 17, 18, 50, 55.945)            # from the file recording time (stat)
-difference = sat-LocationC                          #    ... + offset to 1st pulse
+ti = ts.utc(2026, 8, 17, 18, 50, 52.260392059-0.3)  # from the file recording time (stat)
+difference = sat-LocationC                          #    ... + offset to cutting the file
 print('% '+ti.utc_strftime('%Y %b %d %H:%M:%S'))
-t=np.genfromtxt("tpos.txt")                         # time of each pulse since 20:48.80345523672727
+t=np.genfromtxt("tpos_max2771.txt")                         # time of each pulse since 20:48.80345523672727
 for k in range(len(t)):
   # print((ti+t[k]/3600/24).utc_strftime('%Y %b %d %H:%M:%S'))
   print(difference.at(ti+t[k]/3600/24).frame_xyz(LocationC).m)
