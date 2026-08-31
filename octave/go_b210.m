@@ -4,7 +4,9 @@ end
 
 fs=22e6;
 N=fs/40;
-f1=fopen('2ref.bin');    % ref = B = 2
+if (exist('filename')==0) filename='2ref.bin';end
+
+f1=fopen(filename);    % ref = B = 2
 d=fread(f1,N*2,'int16'); ref=d(1:2:end)+j*d(2:2:end);
 
 %m=1                  % search for chirp shape: uncomment fseek to use

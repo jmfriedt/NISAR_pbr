@@ -1,6 +1,8 @@
 pkg load signal
 fs=24e6;
-f=fopen('12zoom.bin');
+if (exist('filename')==0) filename='12zoom.bin';end
+
+f=fopen(filename);
 N=fs/100;
 bit2val=[1,3,-1,-3];
 

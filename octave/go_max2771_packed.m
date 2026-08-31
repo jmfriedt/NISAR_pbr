@@ -2,11 +2,13 @@ if exist ('OCTAVE_VERSION')
   pkg load signal
 end
 
+if (exist('filename')==0) filename1='12zoom.bin';end
+
 threshold=5
 bit2val=[1,3,-1,-3];
 fs=24e6;
 N=fs/4;
-f=fopen('12zoom.bin');
+f=fopen(filename);
 
 fseek(f,fs*27);
 x=fread(f,N,'uint8');       % /!\ MUST be unsigned, otherwise the sign of Q1 is lost
@@ -69,4 +71,4 @@ do
   ref=i1-j*q1;
   q=q+p-1;
 until ((length(x)<N));
-save -mat kpos.mat kpos
+save -mat max2771_kpos.mat kpos

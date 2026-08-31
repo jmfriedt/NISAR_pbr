@@ -1,8 +1,12 @@
-clc;
-clear;
-close all;
+load max2771_kpos.mat
 
-load kpos.mat
+if (exist('kposstart')==0) kposstart=8701;       end;
+if (exist('filename')==0) filename='12zoom.bin';end;
+if (exist('Nr')==0)       Nr=2501;              end;
+if (exist('P')==0)        P=2301;               end;
+if (exist('theta0')==0)    theta0 = 44*pi/180;   end
+
+kposstart
 
 %% Parameters
 c = 3e8;
@@ -10,12 +14,10 @@ fc = 1229e6; % c/lembda;
 lembda = c/fc; % 24e-2;
 
 H = 750.2e3;       % TLE Celestrak (semi-major axis)
-theta0 = 44*pi/180;
 beta_sat = -H/sin(theta0);
 
 fs = 24e6;
 
-Nr = 2501;
 freq = (-(Nr-1)/2:(Nr-1)/2).'/Nr*fs;
 
 orbits_per_day=14.42502395
@@ -25,11 +27,9 @@ orbit_length=(Rearth+H)*2*pi;
 
 linspeed=orbit_length/orbit_duration
 % linspeed = sqrt(5.972e24*6.67430e-11/(6371e3+H)) % sqrt((G*M)/(R+H)) gravity constant x Earth mass
-P = 2301;
 
 %% Load data
-f12=fopen('12zoom.bin');  % ref
-fseek(f12,fs*27);
+f12=fopen(filename);
 
 bit2val=[1,3,-1,-3];
 clear x
@@ -57,7 +57,8 @@ Ssur = zeros(Nr,P);
 L = 5;
 AS = 50;
 
-pindx=kpos(8001:8001+P+L);
+kindx=[kposstart:kposstart+P+L];
+pindx=kpos(kindx);
 
 fseek(f12,pindx(1)-AS-1-L, SEEK_CUR);  % packed char = 1x
 x=fread(f12,(pindx(end)-pindx(1)+Nr+L),'uint8');
@@ -74,6 +75,7 @@ clear x
 for p = 1:P
     disp(p);
     Sref(:,p) = ref1(pindx(p)-AS:pindx(p)-AS+Nr-1);
+    Sref(:,p) = Sref(:,p)-mean(Sref(:,p));
 %     Sls = zeros(Nr,L);
 %     for l = -(L-1)/2:(L-1)/2
 %         Sls(:,l+(L-1)/2+1) = ref1(pindx(p)-AS+l:pindx(p)-AS+Nr-1+l);
@@ -81,6 +83,7 @@ for p = 1:P
 %     temp = sur1(pindx(p)-AS:pindx(p)-AS+Nr-1);
 %     Ssur(:,p) = temp-Sls*pinv(Sls)*temp;
     Ssur(:,p) = sur1(pindx(p)-AS:pindx(p)-AS+Nr-1);
+    Ssur(:,p) = Ssur(:,p)-mean(Ssur(:,p));
  end
 N = length(ref1);
 t = (0:N-1)/fs;
@@ -99,9 +102,10 @@ for p = 1:P
     S(:,p) = Ssur_fft(:,p).*conj(Sref_fft(:,p));
 end
 
-save -mat S2501_2301.mat S
+save -mat S_2501_2301_max2771.mat S kindx
 %load S.mat S;
 
+clear Sref Ssur
 %% SAR i maging
 al_sat = linspeed*t0;
 
@@ -111,12 +115,10 @@ al_I = linspace(-7e-3,7e-3,3501);nal = length(al_I);
 F2 = exp(-1j*2*pi*al_sat*al_I/lembda)/sqrt(P);
 
 % Filter DC and windowing before azimuth compression
-hlen=100;
 tmp=F1'*S;
-%tmp=tmp.';
 tmp=tmp-mean(tmp,2);  % mean(tmp) is 2501 along range
+%hlen=100;
 %tmp=tmp.*([hamming(hlen)(1:hlen/2) ; ones(P-hlen,1) ; hamming(hlen)(hlen/2+1:end)]*ones(1,length(beta_I)));
-%tmp=tmp.';
 Image_I=tmp*conj(F2);
 
 % Image_I = F1'*S*conj(F2);
@@ -152,4 +154,4 @@ xlabel('x (m)');ylabel('y (m)');
 ylabel(colorbar,'Normalized amplitude (dB)');
 %set(gca,'FontName','Times New Roman','FontSize',14);
 
-save -mat nisar.mat Image_xy
+save -mat max2771_ifft.mat Image_xy

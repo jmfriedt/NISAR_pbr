@@ -1,8 +1,14 @@
-clc;
-clear;
-close all;
+%clc;
+%clear;
+%close all;
 
-load kpos.mat
+load b210_kpos
+
+if (exist('theta0')==0) theta0 = 44*pi/180; end
+if (exist('kposstart')==0) kposstart=7005; end
+if (exist('filename1')==0) filename1='2ref.bin'; end
+if (exist('filename2')==0) filename2='1sur.bin'; end
+kposstart
 
 %% Parameters
 c = 3e8;
@@ -10,12 +16,11 @@ fc = 1229e6; % c/lembda;
 lembda = c/fc; % 24e-2;
 
 H = 750.2e3;       % TLE Celestrak (semi-major axis)
-theta0 = 44*pi/180;
 beta_sat = -H/sin(theta0);
 
-fs = 24e6;
+fs = 22e6;
 
-Nr = 1801;
+Nr = 2501;
 freq = (-(Nr-1)/2:(Nr-1)/2).'/Nr*fs;
 
 orbits_per_day=14.42502395
@@ -28,11 +33,9 @@ linspeed=orbit_length/orbit_duration
 P = 2301;
 
 %% Load data
-f12=fopen('12zoom.bin');  % ref
-fseek(f12,fs*27);
-
-bit2val=[1,3,-1,-3];
-clear x
+f1=fopen(filename1);  % 2=ref
+f2=fopen(filename2);  % 1=sur
+clear d
 
 %% Find pulses
 % p1 = find(abs(ref1)>70);
@@ -57,31 +60,25 @@ clear x
  L = 5;
  AS = 50;
 
- pindx=kpos(8001:8001+P+L);
+kindx=[kposstart:kposstart+P+L];
+pindx=kpos(kindx);
 
- fseek(f12,pindx(1)-AS-1-L, SEEK_CUR);  % packed char = 1x
- x=fread(f12,(pindx(end)-pindx(1)+Nr+L),'uint8');
- i0=bit2val(bitand(x,3)+1);
- q0=bit2val(bitand(bitshift(x,-2),3)+1);
- i1=bit2val(bitand(bitshift(x,-4),3)+1);
- q1=bit2val(bitand(bitshift(x,-6),3)+1);
- ref1=i1-j*q1;ref1=ref1.';
- sur1=i0-j*q0;sur1=sur1.';
-
+ fseek(f1,2*2*pindx(1)-AS-1-L,SEEK_CUR);  % complex short = 2x2
+ fseek(f2,2*2*pindx(1)-AS-1-L,SEEK_CUR);  % complex short = 2x2
+ d=fread(f1,(pindx(end)-pindx(1)+Nr+L)*2,'int16');ref1=d(1:2:end)+j*d(2:2:end);
+ d=fread(f2,(pindx(end)-pindx(1)+Nr+L)*2,'int16');sur1=d(1:2:end)+j*d(2:2:end);
  pindx=pindx-(pindx(1)-AS)+1+L;
- clear x
+ clear d
 
  for p = 1:P
      disp(p);
      Sref(:,p) = ref1(pindx(p)-AS:pindx(p)-AS+Nr-1);
-% Sref(:,p)=Sref(:,p)-mean(Sref(:,p));
      Sls = zeros(Nr,L);
      for l = -(L-1)/2:(L-1)/2
          Sls(:,l+(L-1)/2+1) = ref1(pindx(p)-AS+l:pindx(p)-AS+Nr-1+l);
      end
      temp = sur1(pindx(p)-AS:pindx(p)-AS+Nr-1);
      Ssur(:,p) = temp-Sls*pinv(Sls)*temp;
-% Ssur(:,p)=Ssur(:,p)-mean(Ssur(:,p));
  end
  N = length(ref1);
  t = (0:N-1)/fs;
@@ -100,6 +97,7 @@ clear x
      S(:,p) = Ssur_fft(:,p).*conj(Sref_fft(:,p));
  end
 
+save -mat S_2501_2301_b210.mat S kindx
 %load S.mat S;
 
 %% SAR imaging
@@ -111,7 +109,16 @@ F1 = exp(-1j*2*pi*freq*beta_I/c)/sqrt(Nr);
 al_I = linspace(-7e-3,7e-3,3501);nal = length(al_I);
 F2 = exp(-1j*2*pi*al_sat*al_I/lembda)/sqrt(P);
 
-Image_I = F1'*S*conj(F2);
+% Filter DC and windowing before azimuth compression
+hlen=100;
+tmp=F1'*S;
+%tmp=tmp.';
+tmp=tmp-mean(tmp,2);  % mean(tmp) is 2501 along range
+%tmp=tmp.*([hamming(hlen)(1:hlen/2) ; ones(P-hlen,1) ; hamming(hlen)(hlen/2+1:end)]*ones(1,length(beta_I)));
+%tmp=tmp.';
+Image_I=tmp*conj(F2);
+
+% Image_I = F1'*S*conj(F2);
 Image_I_db = 20*log10(abs(Image_I)/max(abs(Image_I(:))));
 figure;imagesc(al_I,beta_I,Image_I_db);axis xy;
 colormap(jet);colorbar;clim([-54,0]);
@@ -143,3 +150,5 @@ clim([-54,0]);colormap(jet);colorbar;
 xlabel('x (m)');ylabel('y (m)');
 ylabel(colorbar,'Normalized amplitude (dB)');
 %set(gca,'FontName','Times New Roman','FontSize',14);
+
+save -mat b210_ifft.mat Image_xy

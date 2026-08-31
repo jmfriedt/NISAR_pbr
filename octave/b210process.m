@@ -1,22 +1,13 @@
 pkg load signal
 fs=22e6;
-f1=fopen('1sur.bin'); % 1
-f2=fopen('2ref.bin'); % 2
-%f1=fopen('/tmp/1.bin'); % 1
-%f2=fopen('/tmp/2.bin'); % 2
-%N=fs*15;
-%d=fread(f,2*N,'int8');d1=d(1:2:end)+j*d(2:2:end);
-%k=find(abs(d)>120);
-%kk=(diff(k)>1000);
-%plot(diff(k(kk)))
-%
-%fseek(f,10*fs*4*2,SEEK_CUR)  % 10 seconds, complex and 2 channels, short
+if (exist('filename1')==0) filename1='1.bin';end
+if (exist('filename2')==0) filename2='2.bin';end
+
+f1=fopen(filename1); % 1ref
+f2=fopen(filename2); % 2sur
 N=fs/100;
 d=fread(f1,2*N,'int16');d1=d(1:2:end)+j*d(2:2:end);
 d=fread(f2,2*N,'int16');d2=d(1:2:end)+j*d(2:2:end);
-%   d1=d(1:2:end);d1=d1-mean(d1);
-%   d2=d(2:2:end);d2=d2-mean(d2);
-%return
 m=1;
 
 t=[-218:218]/fs;
@@ -34,11 +25,6 @@ while ((length(d1)==N)) %  && (m<17*100))  % -- 10+17=27
    d=fread(f1,2*N,'int16');d1=d(1:2:end)+j*d(2:2:end);
    d=fread(f2,2*N,'int16');d2=d(1:2:end)+j*d(2:2:end);
    m=m+1;
-%   fseek(f,200*N,SEEK_CUR);
-%   d=fread(f,4*N,'int16');d=d(1:2:end)+j*d(2:2:end);
-%   d1=d(1:2:end);d1=d1-mean(d1);
-%   d2=d(2:2:end);d2=d2-mean(d2);
-%   waitbar((m-1)*N*2/dirlist.bytes)
 end
 figure
 subplot(311)
