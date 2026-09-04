@@ -9,6 +9,12 @@ SAR satellites to supplement its coverage around the Arctic pole" (last updated 
 Funny enough, this <a href="https://science.nasa.gov/video-detail/amf-1a1ed0e7-59b4-4a9d-acc5-d52896620f2b/">video</a> from the NASA
 web site still shows the spaceborne RADAR shooting to the right, as does <a href="https://www.isro.gov.in/media_isro/image/index/NISAR/Picture3.jpg.webp">this picture</a> from ISRO.
 
+**Major change end of Aug. 2026**: according to <a href="https://math.dartmouth.edu/~annegelb/dissertation2020.pdf">thesis (p.30)</a>
+and <a href="https://elisecolin.medium.com/what-are-the-physical-quantities-in-a-sar-image-c788a8265abd"</a>this blog</a>, the
+SAR backscattered signal should be considered as an amplitude and not a power, despite being the product of two measurements, and
+hence a measurement squared, or seemingly a power. From then on, all maps are displayed with $20log_{10}(\sigma)$ rather than
+$10log_{10}(\sigma)$ used earlier. The processing scripts were updated, but not the figures.
+
 ## Need to know when to listen
 
 From the TLE orbital parameters, the known satellite altitude and the known
