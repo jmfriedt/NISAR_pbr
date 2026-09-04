@@ -95,9 +95,14 @@ f2=fopen('2ref.bin'); % 2
 ```
 to check the zoom and delete {1,2}.bin
 ```
-octave:> go_b210.m
+octave:> go_b210
 ```
-to identify chirp positions.
+to identify chirp positions. Finally
+
+```
+octave:> nisarb210_process5
+```
+for iFFT method azimuth compression:
 
 <img src="max2771_XY.png">
 
@@ -142,5 +147,11 @@ with ``f=fopen('12zoom.bin');`` to check that the right part of the file was sel
 octave:> go_max2771_packed
 ```
 to identify chirp positions.
+Finally,
+```
+octave:> nisarmax2771_process6
+```
+for iFFT method azimuth compression.
 
 <img src="b210_XY.png">
+
