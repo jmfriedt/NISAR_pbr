@@ -279,4 +279,6 @@ stating "NISAR is a left-looking mission, which allows for complete coverage ove
 The tradeoff is an area around the North Pole where coverage is not available" and Observation
 plan at https://nisar-docs.asf.alaska.edu/observation-plan/#ref-obs-plan-app
 
+<img src="2026-09-13-161825_2704x1050_scrot.png">
+
 Unfortunately Spitsbergen is out of range of NISAR.
