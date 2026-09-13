@@ -271,3 +271,12 @@ ascending pass of 04:19 UTC at days multiple of 12 days after Jan 07.
 Datasets are too large to be stored on github, but are available on request. At the time
 of writing, over 40 GB worth of records are stored, split to only keep the useful part of
 each pass.
+
+## Update Sept. 2026: observation plan availability
+
+Many documents have now been published, including https://nisar-docs.asf.alaska.edu/nisar-intro/
+stating "NISAR is a left-looking mission, which allows for complete coverage over Antarctica. 
+The tradeoff is an area around the North Pole where coverage is not available" and Observation
+plan at https://nisar-docs.asf.alaska.edu/observation-plan/#ref-obs-plan-app
+
+Unfortunately Spitsbergen is out of range of NISAR.
