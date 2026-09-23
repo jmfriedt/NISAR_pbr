@@ -110,4 +110,4 @@ kpos(3000)/22e6
 ans = 2.477456318181818
 ```
 
-<img src="max2771_XY.png">
+<img src="max2771_XY_kpos4500.png">
