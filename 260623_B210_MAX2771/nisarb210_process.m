@@ -1,6 +1,3 @@
-load b210_kpos
-
-%% Parameters
 theta0 = 51*pi/180;
 Nr = 2501;
 P = 2501;

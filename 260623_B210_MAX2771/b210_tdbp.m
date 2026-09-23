@@ -4,7 +4,7 @@ b210tdbp=1;
 dX=10  % resolution (m)
 dY=10
 hasdem=0;  % 1
-meanalti=0 % 348.1; % mean(mean(dem))
+meanalti=348 % 348.1; % mean(mean(dem))
 addpath('../octave');
 tdbp
 figure
