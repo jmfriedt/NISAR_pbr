@@ -68,5 +68,5 @@ do
   %ref=i0-j*q0;
   ref=i1-j*q1;
   q=q+p-1;
-until ((length(x)<N)|(m>4501));
-save -mat kpos.mat kpos
+until ((length(x)<N)) ; % |(m>4501));
+save -mat max2771_kpos.mat kpos
