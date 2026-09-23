@@ -110,7 +110,7 @@ the position of the satellite in ``predict.py``.
 
 Result of ``nisarbmax2771_process5.m``:
 
-<img src="XY_b210.png">
+<img src="b210_XY.png">
 
 ## MAX2771 to RPi5
 
@@ -150,4 +150,4 @@ ans = 15250
 
 Result of ``nisarb210_process5.m``
 
-<img src="XY_max2771.png">
+<img src="max2771_XY.png">

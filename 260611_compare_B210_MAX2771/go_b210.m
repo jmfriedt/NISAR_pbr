@@ -42,6 +42,10 @@ do
 %      printf("pulse found: %d\n",p)
        kpos(m)=b+q;
        kval(m)=a;
+       knoise(m)=var(refx(b+450:b+Nmin-500));  % 450 = chirp duration 20e-6*22e6
+       if (mod(m,1000)==1)
+          subplot(211);plot(abs(refx(p:p+Nmin)));hold on
+       end
 %      if (m>1) 
 %          if ((kpos(m)-kpos(m-1))>Nmax) || ((kpos(m)-kpos(m-1))<Nmin)
 %             plot([0:Nmin]/fs*1e6,abs(refx(p:p+Nmin)));title(['problem ',num2str(kpos(m)-kpos(m-1))]);pause
@@ -51,7 +55,7 @@ do
  %        plot(abs(refx(p:p+Nmin)));title('OK');pause
  %      end
        p=b+Nmin;
-       m=m+1;
+       m=m+1
     else
        p=p+Nmin;
  %      printf("NG\n")

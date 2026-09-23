@@ -68,4 +68,4 @@ do
   ref=i1-j*q1;
   q=q+p-1;
 until ((length(x)<N));
-save -mat kpos.mat kpos
+save -mat max2771_kpos.mat kpos
