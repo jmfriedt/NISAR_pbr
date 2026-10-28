@@ -82,7 +82,7 @@ Benefit of file size:
 
 Range-azimuth compressed image of the MAX2771 acquisition
 
-<img src=max2771_alphabeta.png">
+<img src="max2771_alphabeta.png">
 
 Conversion to geographic coordinates
 
