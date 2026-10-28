@@ -87,3 +87,7 @@ Range-azimuth compressed image of the MAX2771 acquisition
 Conversion to geographic coordinates
 
 <img src="max2771_XY.png">
+
+## Result in a geographical context
+
+<img src="Layout.png">
