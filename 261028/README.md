@@ -1,4 +1,4 @@
-# Nov. 28 2026 NISAR pass (44 deg elevation)
+# October 28 2026 NISAR pass (44 deg elevation)
 
 <img src="2026-10-28-220041_2944x1080_scrot.png">
 
@@ -37,6 +37,14 @@ $ cat 1.bin | head -c 1056000000 | tail -c 616000000 > 1cut.bin
 $ cat 2.bin | head -c 1056000000 | tail -c 616000000 > 2cut.bin
 ```
 
+Benefit on file size:
+```
+-rw-r--r--  1 jmfriedt jmfriedt 1604574240 Oct 28 19:51 1.bin
+-rw-rw-r--  1 jmfriedt jmfriedt  616000000 Oct 28 21:35 1cut.bin
+-rw-r--r--  1 jmfriedt jmfriedt 1604574240 Oct 28 19:51 2.bin
+-rw-rw-r--  1 jmfriedt jmfriedt  616000000 Oct 28 21:36 2cut.bin
+```
+
 Range-azimuth compression:
 
 <img src="b210_alphabeta.png">
@@ -49,10 +57,6 @@ Geographic coordinates:
 
 targeted start time: 18:50:31 UTC
 
-Full acquisition cross correlation with expected chirp:
-
-<img src="max2771_fig1all.png">
-
 ```
 $ sudo ./PocketSDR/app/pocket_conf/pocket_conf pocket_NISAR_24MHz.conf
 Pocket SDR device settings are changed.
@@ -61,7 +65,12 @@ $ sudo rm /tmp/*bin* && sudo ./PocketSDR/app/pocket_dump/pocket_dump -t 60 -r /t
     60.0   1439694848    23994.5
 ```
 
+Full acquisition cross correlation with expected chirp:
+
+<img src="max2771_fig1all.png">
+
 Selecting the relevant subset of the data:
+
 ```
 > 34*24e6
 ans = 816000000
@@ -70,14 +79,10 @@ ans = 336000000
 head -c 816000000 12.bin | tail -c 336000000 > 12cut.bin
 ```
 
-Benefit of file size:
+Benefit on file size:
 ```
 -rw-r--r--  1 jmfriedt jmfriedt 1439694848 Oct 28 19:55 12.bin
--rw-r--r--  1 jmfriedt jmfriedt 1604574240 Oct 28 19:51 1.bin
--rw-rw-r--  1 jmfriedt jmfriedt  616000000 Oct 28 21:35 1cut.bin
 -rw-rw-r--  1 jmfriedt jmfriedt  336000000 Oct 28 21:52 12cut.bin
--rw-r--r--  1 jmfriedt jmfriedt 1604574240 Oct 28 19:51 2.bin
--rw-rw-r--  1 jmfriedt jmfriedt  616000000 Oct 28 21:36 2cut.bin
 ```
 
 Range-azimuth compressed image of the MAX2771 acquisition
