@@ -18,16 +18,6 @@ ans = 288000000
 head -c 816000000 12.bin | tail -c 288000000 > 12cut.bin
 ```
 
-go_max2771_packed.m
-max2771_all.mat.gz
-max2771_all.png
-max2771_alpha_beta.png
-max2771_ifft.mat
-max2771_kpos.mat
-max2771process_packed.m
-max2771_XY.png
-max2771_zoom.mat.gz
-max2771_zoom.png
-nisarmax2771_process6.m
-README.md
-S_2501_2301_max2771.mat
+<img src="max2771_all.png">
+
+<img src="max2771_XY.png">
